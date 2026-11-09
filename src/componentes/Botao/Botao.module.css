@@ -1,0 +1,32 @@
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-1);
+  padding: 0 var(--espaco-4);
+  border: var(--foco-espessura) solid transparent;
+  border-radius: var(--raio);
+  font-size: var(--texto-base);
+  font-weight: 700;
+  transition: background-color 150ms ease;
+}
+
+.primario {
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+}
+
+.primario:hover {
+  background: var(--cor-primaria-hover);
+}
+
+/* Secundário: borda + texto, sem depender só da cor para se diferenciar */
+.secundario {
+  background: var(--cor-superficie);
+  color: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.secundario:hover {
+  background: var(--cor-destaque);
+}
