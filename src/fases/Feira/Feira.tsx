@@ -2,11 +2,11 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { FalaDaVo } from '../../componentes/FalaDaVo/FalaDaVo'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
-import { BARRACAS } from '../../jogo/barracas'
 import type { ResultadoDaFeira, Toque } from '../../jogo/indicadores'
-import { INGREDIENTES, type IdIngrediente } from '../../jogo/ingredientes'
+import { INGREDIENTES, type IdIngrediente, type Troca } from '../../jogo/ingredientes'
+import type { BarracaDaSessao } from '../../jogo/sessao'
 import { msDesde } from '../../jogo/utilidades'
-import { FALAS } from '../../voz/falas'
+import { falaDaTroca } from '../../voz/falas'
 import { falar } from '../../voz/voz'
 import estilos from './Feira.module.css'
 
@@ -14,10 +14,14 @@ type Etapa = 'compras' | 'troca'
 
 type FeiraProps = {
   etapa: string
+  barracas: readonly BarracaDaSessao[]
+  troca: Troca
   aoConcluir: (resultado: ResultadoDaFeira) => void
 }
 
-export function Feira({ etapa, aoConcluir }: FeiraProps) {
+export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
+  const avisoDaTroca = falaDaTroca(troca)
+
   const [etapaDaTela, setEtapaDaTela] = useState<Etapa>('compras')
   const [sacola, setSacola] = useState<IdIngrediente[]>([])
   const [falando, setFalando] = useState(false)
@@ -56,7 +60,7 @@ export function Feira({ etapa, aoConcluir }: FeiraProps) {
     const controle = new AbortController()
     controleRef.current = controle
     setFalando(true)
-    await falar(FALAS.feiraTroca, controle.signal)
+    await falar(avisoDaTroca, controle.signal)
     setFalando(false)
   }
 
@@ -76,6 +80,7 @@ export function Feira({ etapa, aoConcluir }: FeiraProps) {
     <TelaFase
       etapa={etapa}
       titulo="A feira"
+      larga
       descricao="Toque nos ingredientes da sopa para colocar na sacola."
       acoes={
         etapaDaTela === 'compras' ? (
@@ -87,12 +92,12 @@ export function Feira({ etapa, aoConcluir }: FeiraProps) {
     >
       {etapaDaTela === 'troca' && (
         <div className={estilos.fala}>
-          <FalaDaVo fala={FALAS.feiraTroca.texto} falando={falando} compacta />
+          <FalaDaVo fala={avisoDaTroca.texto} falando={falando} compacta />
         </div>
       )}
 
       <div className={estilos.barracas}>
-        {BARRACAS.map((barraca, indice) => (
+        {barracas.map((barraca, indice) => (
           <section
             key={barraca.id}
             className={estilos.barraca}
@@ -102,8 +107,11 @@ export function Feira({ etapa, aoConcluir }: FeiraProps) {
           >
             <h2 id={`toldo-${barraca.id}`} className={estilos.toldo}>
               <span className={estilos.simbolo} aria-hidden="true">{barraca.simbolo}</span>
-              {barraca.nome}
-              <span className="sr-only">(símbolo: {barraca.nomeDoSimbolo})</span>
+              {/* Na tela, só o feirante (cabe numa linha); o leitor de tela lê o nome completo */}
+              <span aria-hidden="true">{barraca.feirante}</span>
+              <span className="sr-only">
+                {barraca.nome} (símbolo: {barraca.nomeDoSimbolo})
+              </span>
             </h2>
 
             <div className={estilos.itens}>

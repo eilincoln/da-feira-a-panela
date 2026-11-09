@@ -3,7 +3,7 @@
    em números para a pesquisa. Guardamos só o que aconteceu
    (os toques); os indicadores são sempre CALCULADOS a partir disso.
    ========================================= */
-import { INGREDIENTES, receitaDepoisDaTroca, TROCA, type IdIngrediente } from './ingredientes'
+import { INGREDIENTES, receitaDepoisDaTroca, type IdIngrediente, type Troca } from './ingredientes'
 
 export type Toque = {
   item: IdIngrediente
@@ -40,6 +40,7 @@ export function compararListas(
 
 export function calcularIndicadoresDaFeira(
   receita: readonly IdIngrediente[],
+  troca: Troca,
   resultado: ResultadoDaFeira,
 ) {
   const final = resultado.sacolaFinal
@@ -47,10 +48,10 @@ export function calcularIndicadoresDaFeira(
     // Manutenção: o que foi comprado ANTES do aviso de troca.
     manutencao: compararListas(receita, resultado.sacolaAntesDaTroca),
     // Atualização: a sacola final comparada com a receita JÁ trocada.
-    atualizacao: compararListas(receitaDepoisDaTroca(receita), final),
-    trocaFeita: final.includes(TROCA.entra) && !final.includes(TROCA.sai),
+    atualizacao: compararListas(receitaDepoisDaTroca(receita, troca), final),
+    trocaFeita: final.includes(troca.entra) && !final.includes(troca.sai),
     // Perseveração: manteve o item antigo (erro típico de atualização).
-    perseveracao: final.includes(TROCA.sai),
+    perseveracao: final.includes(troca.sai),
   }
 }
 
@@ -65,18 +66,19 @@ export type ResultadoDaPanela = {
 
 export function calcularIndicadoresDaPanela(
   receita: readonly IdIngrediente[],
+  troca: Troca,
   resultado: ResultadoDaPanela,
 ) {
   // Só dá para avaliar a ordem de itens cuja posição a vó ensinou:
-  // os da receita original e o que entrou pela troca. A batata e a
-  // mandioca ocupam o MESMO lugar na ordem de preparo.
-  const daReceita = new Set([...receita, ...receitaDepoisDaTroca(receita)])
+  // os da receita original e o que entrou pela troca. Quem sai e quem
+  // entra ocupam o MESMO lugar na ordem de preparo.
+  const daReceita = new Set([...receita, ...receitaDepoisDaTroca(receita, troca)])
   const avaliados = resultado.sequencia.filter((id) => daReceita.has(id))
   const foraDaReceita = resultado.sequencia.filter((id) => !daReceita.has(id))
   const ordem = (id: IdIngrediente) => INGREDIENTES[id].ordemDePreparo
 
   // Posição correta: o item está num lugar compatível com a ordem de preparo
-  // (empates, como batata e mandioca juntas, aceitam as duas posições).
+  // (empates, como quem sai e quem entra juntos, aceitam as duas posições).
   const posicoesCorretas = avaliados.filter((id, posicao) => {
     const antesDele = avaliados.filter((outro) => ordem(outro) < ordem(id)).length
     const empatados = avaliados.filter((outro) => ordem(outro) === ordem(id)).length
@@ -99,4 +101,14 @@ export function calcularIndicadoresDaPanela(
     paresInvertidos,
     foraDaReceita,
   }
+}
+
+// ---------- DISTRATOR ----------
+// Não é um indicador de memória: serve para conferir que a pessoa ficou
+// mesmo ocupada no intervalo (e quanto tempo ele durou).
+
+export type ResultadoDoDistrator = {
+  rodadasCompletas: number
+  toquesErrados: number
+  duracaoMs: number
 }

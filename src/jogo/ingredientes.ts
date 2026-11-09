@@ -1,6 +1,6 @@
 /* =========================================
-   INGREDIENTES — tudo o que existe na feira
-   Uns entram na receita; os outros são "distratores" (servem para
+   INGREDIENTES — tudo o que existe na feira (16 itens = 4 barracas × 4)
+   Uns podem entrar na receita; os outros são "distratores" (servem para
    medir intrusões: escolher algo que não estava na receita).
    ========================================= */
 
@@ -13,70 +13,82 @@ export type IdIngrediente =
   | 'cenoura'
   | 'milho'
   | 'couve'
-  // entra só pela troca da feira
+  // entram pela troca da feira (quando não são sorteados para a troca, viram distratores)
   | 'mandioca'
-  // distratores (legumes plausíveis numa sopa, para a intrusão ser "tentadora")
+  | 'abobora'
   | 'pimentao'
+  // distratores (plausíveis numa sopa, para a intrusão ser "tentadora")
   | 'berinjela'
   | 'pepino'
   | 'brocolis'
+  | 'cogumelo'
+  | 'pimenta'
+  | 'feijao'
 
 export type Ingrediente = {
   id: IdIngrediente
   nome: string
+  artigo: 'a' | 'o' // para montar frases: "troque A batata", "troque O tomate"
   icone: string // provisório: emojis mudam entre sistemas; trocar por SVG depois
   ordemDePreparo: number // usado na fase da panela (só a ordem relativa importa)
 }
 
+// Quem entra pela troca tem a MESMA ordem de quem sai (ocupa o lugar dele).
 export const INGREDIENTES: Record<IdIngrediente, Ingrediente> = {
-  cebola: { id: 'cebola', nome: 'Cebola', icone: '🧅', ordemDePreparo: 1 },
-  alho: { id: 'alho', nome: 'Alho', icone: '🧄', ordemDePreparo: 2 },
-  pimentao: { id: 'pimentao', nome: 'Pimentão', icone: '🫑', ordemDePreparo: 3 },
-  tomate: { id: 'tomate', nome: 'Tomate', icone: '🍅', ordemDePreparo: 4 },
-  batata: { id: 'batata', nome: 'Batata', icone: '🥔', ordemDePreparo: 5 },
-  mandioca: { id: 'mandioca', nome: 'Mandioca', icone: '🍠', ordemDePreparo: 5 }, // ocupa o lugar da batata
-  cenoura: { id: 'cenoura', nome: 'Cenoura', icone: '🥕', ordemDePreparo: 6 },
-  berinjela: { id: 'berinjela', nome: 'Berinjela', icone: '🍆', ordemDePreparo: 7 },
-  pepino: { id: 'pepino', nome: 'Pepino', icone: '🥒', ordemDePreparo: 8 },
-  brocolis: { id: 'brocolis', nome: 'Brócolis', icone: '🥦', ordemDePreparo: 9 },
-  milho: { id: 'milho', nome: 'Milho', icone: '🌽', ordemDePreparo: 10 },
-  couve: { id: 'couve', nome: 'Couve', icone: '🥬', ordemDePreparo: 11 },
+  cebola: { id: 'cebola', nome: 'Cebola', artigo: 'a', icone: '🧅', ordemDePreparo: 1 },
+  alho: { id: 'alho', nome: 'Alho', artigo: 'o', icone: '🧄', ordemDePreparo: 2 },
+  tomate: { id: 'tomate', nome: 'Tomate', artigo: 'o', icone: '🍅', ordemDePreparo: 3 },
+  pimentao: { id: 'pimentao', nome: 'Pimentão', artigo: 'o', icone: '🫑', ordemDePreparo: 3 },
+  batata: { id: 'batata', nome: 'Batata', artigo: 'a', icone: '🥔', ordemDePreparo: 4 },
+  mandioca: { id: 'mandioca', nome: 'Mandioca', artigo: 'a', icone: '🍠', ordemDePreparo: 4 },
+  cenoura: { id: 'cenoura', nome: 'Cenoura', artigo: 'a', icone: '🥕', ordemDePreparo: 5 },
+  abobora: { id: 'abobora', nome: 'Abóbora', artigo: 'a', icone: '🎃', ordemDePreparo: 5 },
+  milho: { id: 'milho', nome: 'Milho', artigo: 'o', icone: '🌽', ordemDePreparo: 6 },
+  couve: { id: 'couve', nome: 'Couve', artigo: 'a', icone: '🥬', ordemDePreparo: 7 },
+  berinjela: { id: 'berinjela', nome: 'Berinjela', artigo: 'a', icone: '🍆', ordemDePreparo: 8 },
+  pepino: { id: 'pepino', nome: 'Pepino', artigo: 'o', icone: '🥒', ordemDePreparo: 9 },
+  brocolis: { id: 'brocolis', nome: 'Brócolis', artigo: 'o', icone: '🥦', ordemDePreparo: 10 },
+  cogumelo: { id: 'cogumelo', nome: 'Cogumelo', artigo: 'o', icone: '🍄', ordemDePreparo: 11 },
+  pimenta: { id: 'pimenta', nome: 'Pimenta', artigo: 'a', icone: '🌶️', ordemDePreparo: 12 },
+  feijao: { id: 'feijao', nome: 'Feijão', artigo: 'o', icone: '🫘', ordemDePreparo: 13 },
 }
 
-// Ordem em que os ingredientes ENTRAM na receita conforme ela cresce.
-// A batata vem primeiro porque a feira pede "troque a batata por
-// mandioca": ela precisa estar na receita em qualquer tamanho.
-const PRIORIDADE: readonly IdIngrediente[] = [
+export const TODOS_OS_INGREDIENTES = Object.keys(INGREDIENTES) as IdIngrediente[]
+
+export const PODEM_ENTRAR_NA_RECEITA: readonly IdIngrediente[] = [
+  'cebola',
+  'alho',
+  'tomate',
   'batata',
   'cenoura',
-  'cebola',
   'milho',
-  'tomate',
-  'alho',
   'couve',
 ]
 
 export const TAMANHO_MINIMO_DA_RECEITA = 3
 export const TAMANHO_MAXIMO_DA_RECEITA = 7
+// Começa em 5 (estava 3: "muito fácil" no teste). A adaptação de
+// dificuldade, num bloco futuro, vai mexer neste número durante o jogo.
+export const TAMANHO_INICIAL_DA_RECEITA = 5
 
-// A atualização da memória de trabalho pedida na feira.
-export const TROCA = { sai: 'batata', entra: 'mandioca' } as const satisfies {
+export type Troca = {
   sai: IdIngrediente
   entra: IdIngrediente
 }
 
-function porOrdemDePreparo(a: IdIngrediente, b: IdIngrediente) {
+// Trocas possíveis: uma é sorteada por jogo. São poucas e fixas porque
+// cada uma precisa de uma gravação de voz própria.
+export const TROCAS_POSSIVEIS: readonly Troca[] = [
+  { sai: 'batata', entra: 'mandioca' },
+  { sai: 'cenoura', entra: 'abobora' },
+  { sai: 'tomate', entra: 'pimentao' },
+]
+
+export function porOrdemDePreparo(a: IdIngrediente, b: IdIngrediente) {
   return INGREDIENTES[a].ordemDePreparo - INGREDIENTES[b].ordemDePreparo
 }
 
-// Monta a receita com N itens e devolve na ordem de preparo
-// (é nessa ordem que a vó fala e que a panela vai pedir).
-export function montarReceita(quantidade: number): IdIngrediente[] {
-  const n = Math.min(Math.max(quantidade, TAMANHO_MINIMO_DA_RECEITA), TAMANHO_MAXIMO_DA_RECEITA)
-  return PRIORIDADE.slice(0, n).toSorted(porOrdemDePreparo)
-}
-
 // A receita como ela fica depois da troca (é o que a panela vai pedir).
-export function receitaDepoisDaTroca(receita: readonly IdIngrediente[]): IdIngrediente[] {
-  return receita.map((id) => (id === TROCA.sai ? TROCA.entra : id))
+export function receitaDepoisDaTroca(receita: readonly IdIngrediente[], troca: Troca): IdIngrediente[] {
+  return receita.map((id) => (id === troca.sai ? troca.entra : id))
 }

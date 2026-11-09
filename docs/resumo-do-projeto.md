@@ -1,7 +1,7 @@
 # Da Feira à Panela — resumo do projeto para a parte escrita
 
 > Documento de apoio para a ficha explicativa do **NeuroGame Lab** (Neurociência Cognitiva e Reabilitação).
-> Atualizado em **09/11/2026** (inclui a fase da panela). Apresentação: **23/11/2026**.
+> Atualizado em **09/11/2026** (inclui panela, intervalo e sorteio a cada jogo). Apresentação: **23/11/2026**.
 > Parte técnica (app): Lincoln. Parte escrita: estudante de Psicologia.
 
 ---
@@ -23,8 +23,9 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 | **Fase 2 — A feira** | ✅ pronto |
 | Animações | ✅ pronto |
 | **Fase 3 — A panela** | ✅ pronto |
-| Distrator (intervalo de 5 a 10 min) | ⏳ próximo passo |
-| Fase 4 — O almoço (memória episódica) | ⏳ a fazer |
+| **Intervalo (distrator)** | ✅ pronto |
+| **Sorteio a cada jogo + dificuldade maior** | ✅ pronto |
+| Fase 4 — O almoço (memória episódica) | ⏳ próximo passo |
 | Painel de resultados completo + exportação | ⏳ a fazer (já existe uma versão provisória) |
 | Adaptação de dificuldade (3 → 7 itens) | ⏳ a fazer |
 | Versão em papel/PDF (backup exigido pela professora) | ⏳ a fazer |
@@ -65,24 +66,31 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 ### Fase 1 — A receita — ✅ pronto
 - **O que acontece:** a vó diz *"Para a sopa, vamos precisar de:"* e os ingredientes aparecem **um por um**, com imagem, nome escrito e voz, cada um por no mínimo 2 segundos. A lista completa fica 3 segundos na tela e depois **some**.
 - **O que mede:** a **codificação** e a **retenção** na memória de trabalho.
-- **Receita atual:** 3 itens (cebola, batata, cenoura), em ordem de preparo. O tamanho poderá crescer até 7. O ponto de partida em 3 fica abaixo do limite de cerca de 4 itens proposto por Cowan (2001), para começar com uma tarefa fácil.
+- **Receita:** **5 itens**, sorteados a cada jogo novo e apresentados em ordem de preparo, que é a ordem que a panela vai pedir. O tamanho começou em 3, mas no teste piloto ficou fácil demais e passou para 5. Isso é um pouco acima do limite de cerca de 4 itens proposto por Cowan (2001), então exige esforço sem ser impossível. A adaptação de dificuldade (planejada) vai variar de 3 a 7 itens.
 - **Apresentação multimodal:** imagem, palavra escrita e voz ao mesmo tempo. Isso reduz o peso de déficits sensoriais (auditivos ou visuais), comuns no envelhecimento.
 - **O que é registrado:** quantas vezes a receita foi ouvida. O aplicador pode repetir se a pessoa se distraiu, mas repetir também é ensaiar, então o número fica registrado como **variável de controle**.
 
 ### Fase 2 — A feira — ✅ pronto
-- **O que acontece:** a tela mostra 4 barracas. Cada uma tem **feirante, cor, símbolo e nome** e vende 3 itens:
+- **O que acontece:** a tela mostra **4 barracas com 4 itens cada (16 opções)**. Cada barraca tem **feirante, cor e símbolo**:
 
-  | Barraca | Cor | Símbolo | Itens |
-  |---|---|---|---|
-  | Seu Zé | azul | ★ estrela | cebola, pimentão, batata |
-  | Dona Rosa | âmbar | ● círculo | cenoura, berinjela, alho |
-  | Seu Tião | roxo | ▲ triângulo | tomate, mandioca, pepino |
-  | Dona Cida | petróleo | ■ quadrado | milho, brócolis, couve |
+  | Barraca | Cor | Símbolo |
+  |---|---|---|
+  | Seu Zé | azul | ★ estrela |
+  | Dona Rosa | âmbar | ● círculo |
+  | Seu Tião | roxo | ▲ triângulo |
+  | Dona Cida | petróleo | ■ quadrado |
 
-  A pessoa toca nos itens para colocá-los na sacola (e pode tocar de novo para tirar). O aplicador encerra as compras e então a vó diz: ***"Ah, esqueci! Troque a batata por mandioca."*** A pessoa faz a troca e o aplicador encerra a fase.
-- **Por que as barracas têm 4 pistas:** elas criam o **contexto** do episódio. No almoço (fase 4), essas pistas viram as perguntas *onde?* e *com quem?*.
-- **Por que há itens que não estão na receita (pimentão, berinjela, pepino, brócolis):** são **distratores**, legumes plausíveis numa sopa. Eles permitem medir **intrusões**.
-- **Por que a mandioca fica numa barraca diferente da batata:** para que a troca exija buscar em outro lugar, e não apenas tocar no item ao lado.
+  **O que cada barraca vende e em que posição ela aparece na tela são sorteados a cada jogo** (ver a seção "Sorteio a cada jogo", logo abaixo).
+
+  A pessoa toca nos itens para colocá-los na sacola (e pode tocar de novo para tirar). O aplicador encerra as compras e então a vó pede **uma troca, sorteada entre três**:
+  - *"Ah, esqueci! Troque a batata por mandioca."*
+  - *"Ah, esqueci! Troque a cenoura por abóbora."*
+  - *"Ah, esqueci! Troque o tomate por pimentão."*
+
+  A pessoa faz a troca e o aplicador encerra a fase.
+- **Por que as barracas têm 3 pistas visuais:** elas criam o **contexto** do episódio. No almoço (fase 4), essas pistas viram as perguntas *onde?* e *com quem?*.
+- **Por que há itens que não estão na receita:** são **distratores**, legumes plausíveis numa sopa (berinjela, pepino, brócolis, cogumelo, pimenta, feijão, além dos itens de troca que não foram sorteados). Eles permitem medir **intrusões**. Com 16 opções e 5 itens certos, sobram 11 itens "tentadores".
+- **O item novo da troca sempre fica numa barraca diferente do antigo:** assim, a troca exige buscar em outro lugar, e não apenas tocar no item ao lado.
 - **Sem feedback de certo/errado:** nesta fase, que é de avaliação, o jogo **não** diz se a pessoa acertou. Um feedback ensinaria a resposta e alteraria a medida.
 
 **Indicadores (definições operacionais):**
@@ -93,20 +101,36 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 | **Omissões** | itens da receita que **não** foram colocados na sacola |
 | **Intrusões** | itens colocados na sacola que **não** estão na receita |
 | **Manutenção** | acertos, omissões e intrusões **antes** do aviso de troca, comparados com a receita original |
-| **Atualização** | acertos, omissões e intrusões **depois** da troca, comparados com a receita já trocada (mandioca no lugar da batata) |
-| **Troca feita** | sim, se a mandioca entrou **e** a batata saiu |
-| **Perseveração** | sim, se a batata continuou na sacola depois do aviso (erro típico de atualização) |
+| **Atualização** | acertos, omissões e intrusões **depois** da troca, comparados com a receita já trocada (o item novo no lugar do antigo) |
+| **Troca feita** | sim, se o item novo entrou **e** o antigo saiu |
+| **Perseveração** | sim, se o item antigo continuou na sacola depois do aviso (erro típico de atualização) |
 | **Tempo** | duração das compras e da troca, em milissegundos. Nunca aparece na tela, é só um indicador secundário |
 | **Sequência de toques** | cada toque fica registrado (item, colocou ou tirou, momento). Isso permite reconstruir o *quando* para a fase 4 |
 
 > *Span*: será calculado quando a adaptação de dificuldade (3 → 7 itens) estiver pronta. **Fica para vocês definirem juntos**: o maior tamanho de receita lembrado sem erros, ou outro critério?
+
+### Sorteio a cada jogo — ✅ pronto
+Cada vez que um jogo novo começa, o app sorteia:
+
+| O que é sorteado | Como | Restrição |
+|---|---|---|
+| **A troca** | 1 entre 3 possíveis (batata→mandioca, cenoura→abóbora, tomate→pimentão) | São só 3 porque cada uma precisa de uma gravação de voz própria |
+| **A receita** | 5 itens entre 7 possíveis (cebola, alho, tomate, batata, cenoura, milho, couve) | O item que sai na troca está sempre na receita |
+| **O que cada barraca vende** | os 16 itens são embaralhados e divididos em 4 grupos de 4 | O item novo da troca nunca fica na mesma barraca do antigo |
+| **A posição das barracas** | as 4 barracas aparecem em ordem embaralhada | — |
+
+Isso dá 21 receitas diferentes × 3 trocas × milhares de arranjos de barracas. O sorteio de cada jogo fica **registrado nos resultados** (receita, troca e o que cada barraca vendia), porque o almoço precisa saber como era *aquela* feira.
+
+**Por quê:** se o jogo fosse sempre igual, quem repetisse (por exemplo, numa reavaliação ou no uso como treino de reabilitação) poderia simplesmente decorar as respostas, e o jogo deixaria de medir memória de trabalho.
+
+> ⚠️ **Ponto metodológico para a ficha:** com o sorteio, **participantes diferentes recebem versões diferentes** do jogo, e algumas podem ser um pouco mais fáceis que outras (por exemplo, se dois itens da receita caem na mesma barraca). Para uma **pesquisa** que compare pessoas, o mais rigoroso seria criar algumas **formas paralelas fixas** (Forma A, B, C…) e sortear entre elas, ou usar a mesma forma para todos na primeira aplicação. **Vale vocês decidirem e citarem como limitação ou escolha consciente.** Se decidirem por formas fixas, a mudança no app é pequena.
 
 ### Fase 3 — A panela — ✅ pronto
 - **O que acontece:** a vó diz *"Agora vamos cozinhar! Coloque na panela na ordem que eu falei."* Aparecem os itens que a pessoa **comprou na feira**, embaralhados, e uma panela com lugares numerados (1º, 2º, 3º…). Cada toque coloca o item no próximo lugar da panela. O aplicador pode **desfazer o último** se a pessoa mudar de ideia. Quando a panela fica completa, a vó diz *"Hum, que cheiro bom!"* e o aplicador encerra a fase.
 - **O que mede:** a memória de trabalho **sequencial**, ou seja, a ordem de preparo que a vó falou na fase 1, já com a troca da feira.
 - **Decisão metodológica:** aparecem **os itens que a pessoa comprou**, incluindo os erros dela, e não a receita correta. É mais ecológico: ela cozinha o que levou para casa. Por isso, **a ordem só é avaliada entre os itens da receita**. Um item fora da receita (o pepino, por exemplo) vai para a panela, mas não tem posição "certa", porque a vó nunca falou dele. Ele é listado à parte e não entra na conta.
 - **Por que embaralhar:** se os itens aparecessem na ordem da compra, a própria tela daria uma dica da sequência.
-- **A batata e a mandioca ocupam o mesmo lugar** na ordem de preparo (a mandioca substituiu a batata). Se a pessoa não fez a troca e colocou a batata, a posição dela também é avaliada.
+- **O item antigo e o novo da troca ocupam o mesmo lugar** na ordem de preparo (por exemplo, a mandioca substitui a batata). Se a pessoa não fez a troca e colocou o item antigo, a posição dele também é avaliada.
 
 **Indicadores:**
 
@@ -122,8 +146,12 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 
 > Exemplo: receita *cebola → mandioca → cenoura*; a pessoa coloca *cenoura → mandioca → cebola*. Resultado: 1 posição correta (mandioca), 2 erros de ordem, 3 pares invertidos.
 
-### Distrator — ⏳ a fazer
-- **Planejado:** uma atividade diferente de **5 a 10 minutos** entre a panela e o almoço, para que a fase 4 avalie a **memória episódica** de longo prazo, e não o que ainda está "fresco" na memória de trabalho.
+### Intervalo (distrator) — ✅ pronto
+- **O que acontece:** um joguinho de **busca visual com animais**: *"Toque em todos os gatos"*, com 12 cartas, das quais 3 são o alvo. Quando a pessoa acha os três, aparece *"Muito bem!"* e começa outra rodada com outro animal. As rodadas se repetem até o aplicador encerrar.
+- **Duração:** o botão do aplicador (*"Ir para o almoço"*) só aparece depois de **5 minutos**. Não há relógio na tela.
+- **Por que animais:** o intervalo precisa **ocupar a atenção** (para a pessoa não ficar repetindo a lista mentalmente) **sem interferir** no que será perguntado no almoço. Por isso, de propósito, ele **não tem comida, nem as cores e símbolos das barracas (★●▲■), nem pessoas**.
+- **O que é registrado** (só para controle, não é indicador de memória): duração real do intervalo, rodadas completas e toques errados.
+- **Sem voz**, por enquanto: o aplicador lê a instrução, que também aparece escrita.
 
 ### Fase 4 — O almoço — ⏳ a fazer
 - **Planejado:** perguntas em três níveis de apoio, sempre do menos para o mais fácil:
@@ -139,7 +167,7 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 
 | Estratégia | No jogo | Referência |
 |---|---|---|
-| Dificuldade adaptativa | a receita cresce de 3 até 7 itens conforme o desempenho | — |
+| Dificuldade adaptativa | a receita varia de 3 a 7 itens conforme o desempenho (hoje fixa em 5) | — |
 | Dicas que vão diminuindo | a ajuda vai sendo retirada aos poucos (já existe uma versão simples no treino) | Glisky, Schacter & Tulving (1986) |
 | Aprendizagem sem erro | evitar que a pessoa erre repetidamente (o treino já destaca o item certo depois de 2 erros) | Baddeley & Wilson (1994); Clare & Woods (2004) |
 | Recordação espaçada | relembrar em intervalos crescentes | Camp et al. (1996) |
@@ -160,6 +188,8 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - **Alvos de toque de 64 px ou mais** (a recomendação AAA é 44 px).
 - **Só toque simples:** sem arrastar, sem toque duplo, sem rolar a tela, sem menus escondidos.
 - **Sem cronômetro visível**, para evitar ansiedade de desempenho. O tempo é registrado em segundo plano.
+- **Botões do aplicador no canto superior direito**, longe da área onde o idoso toca. Isso diminui o risco de ele encerrar uma fase sem querer.
+- **Tudo cabe na tela sem rolar**, inclusive a feira com 16 itens. Isso foi conferido em tamanhos de tablet (iPad deitado e em pé), descontando a barra do navegador.
 
 ### Daltonismo
 - **A cor nunca é a única pista.** Certo e errado usam o eixo **azul/âmbar** (seguro para os tipos mais comuns de daltonismo), **nunca vermelho/verde**, e sempre vêm com **ícone** (✓ ou ↻), **texto** e **tipo de borda** (contínua ou tracejada).
@@ -187,8 +217,9 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 ## 8. Limitações (sugestão para a ficha)
 
 - É um **protótipo acadêmico**: não tem estudo de validade, fidedignidade nem normas. **Não é um instrumento diagnóstico.**
-- As imagens dos ingredientes ainda são provisórias (emojis), e o desenho muda conforme o aparelho. A mandioca, por exemplo, ainda usa o desenho de uma batata-doce.
+- As imagens dos ingredientes ainda são provisórias (emojis), e o desenho muda conforme o aparelho. A mandioca, por exemplo, ainda usa o desenho de uma batata-doce, e a abóbora, o de uma abóbora de Halloween.
 - A familiaridade com tecnologia pode influenciar o desempenho. Isso é parcialmente controlado pelo treino, mas não eliminado.
+- O **sorteio** faz com que participantes diferentes recebam versões diferentes do jogo (ver o ponto metodológico na seção 5).
 - A receita usa ingredientes conhecidos no Brasil. Hábitos alimentares regionais podem tornar alguns itens mais familiares que outros.
 
 ---
@@ -200,6 +231,7 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - [ ] **Gravar a voz da vó** (roteiro na seção 10), ou combinar quem grava.
 - [ ] **Termo de consentimento de uso de voz** para quem gravar. O código do projeto fica público no GitHub (portfólio do Lincoln), então a voz também ficaria pública.
 - [ ] Decidir com o Lincoln a **definição de *span***.
+- [ ] Decidir: **sorteio livre ou formas paralelas fixas** (ver a seção 5).
 - [ ] Pensar na **versão em papel/PDF** de backup para a apresentação.
 - [ ] Se o jogo for aplicado em **pessoas reais** fora da sala de aula: TCLE e, para pesquisa, aprovação de um Comitê de Ética (CEP/Plataforma Brasil). Vale ao menos citar na ficha.
 
@@ -215,14 +247,16 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - **Formato: MP3**, com o nome do arquivo **exatamente** como está na tabela (sem acentos, tudo minúsculo).
 - Os ingredientes devem ser ditos **cada um como se fosse o fim de uma frase** (entonação descendo: *"Cebola."*), e não como pergunta nem como lista emendada.
 
-**Falas atuais (18 arquivos):**
+**Falas atuais (24 arquivos):**
 
 | Arquivo | O que dizer |
 |---|---|
 | `receita-ola.mp3` | Olá! Vou contar a receita da minha sopa. |
 | `receita-para-sopa.mp3` | Para a sopa, vamos precisar de: |
 | `receita-terminou.mp3` | Agora vamos à feira comprar tudo! |
-| `feira-troca.mp3` | Ah, esqueci! Troque a batata por mandioca. |
+| `feira-troca-batata-mandioca.mp3` | Ah, esqueci! Troque a batata por mandioca. |
+| `feira-troca-cenoura-abobora.mp3` | Ah, esqueci! Troque a cenoura por abóbora. |
+| `feira-troca-tomate-pimentao.mp3` | Ah, esqueci! Troque o tomate por pimentão. |
 | `panela-instrucao.mp3` | Agora vamos cozinhar! Coloque na panela na ordem que eu falei. |
 | `panela-terminou.mp3` | Hum, que cheiro bom! Agora vamos descansar um pouco. |
 | `ingrediente-cebola.mp3` | Cebola. |
@@ -237,10 +271,14 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 | `ingrediente-berinjela.mp3` | Berinjela. |
 | `ingrediente-pepino.mp3` | Pepino. |
 | `ingrediente-brocolis.mp3` | Brócolis. |
+| `ingrediente-abobora.mp3` | Abóbora. |
+| `ingrediente-cogumelo.mp3` | Cogumelo. |
+| `ingrediente-pimenta.mp3` | Pimenta. |
+| `ingrediente-feijao.mp3` | Feijão. |
 
-> Os ingredientes que não estão na receita (pimentão, berinjela, pepino, brócolis) já entram na gravação porque vão aparecer nas perguntas de reconhecimento do almoço.
+> Todos os 16 ingredientes entram na gravação, inclusive os que nunca vão para a receita, porque vão aparecer nas perguntas de reconhecimento do almoço.
 >
-> **As falas do intervalo e do almoço** ainda serão definidas. Elas virão numa segunda lista curta, assim que essas fases forem desenhadas.
+> **As falas do almoço** ainda serão definidas. Elas virão numa segunda lista curta, assim que essas fases forem desenhadas.
 >
 > Enquanto os arquivos não existem, o jogo usa a voz sintética do navegador no lugar. Assim, dá para ir testando tudo antes da gravação.
 

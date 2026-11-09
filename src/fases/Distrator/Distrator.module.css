@@ -1,0 +1,85 @@
+.instrucao {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  margin: 0 0 var(--espaco-3);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.iconeAlvo {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.cartas {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-3);
+}
+
+.carta {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 7.5rem;
+  background: var(--cor-superficie);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: 3.5rem;
+  line-height: 1;
+  /* as cartas "viram" uma depois da outra a cada rodada */
+  animation: virar var(--duracao-media) var(--curva-suave) both;
+  animation-delay: calc(var(--ordem) * 40ms);
+  transition: transform var(--duracao-curta) var(--curva-suave);
+}
+
+.carta:active:not(:disabled) {
+  transform: scale(0.93);
+}
+
+.carta:disabled {
+  cursor: default;
+}
+
+.encontrada {
+  border-color: var(--cor-confirmacao);
+  border-width: 8px;
+  background: var(--cor-confirmacao-fundo);
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.selo {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--cor-confirmacao);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+@keyframes virar {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
+}
+
+@media (max-width: 52rem) {
+  .cartas {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 30rem) {
+  .cartas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

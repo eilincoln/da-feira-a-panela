@@ -19,3 +19,7 @@ export function embaralhar<T>(lista: readonly T[]): T[] {
   }
   return copia
 }
+
+export function sortearUm<T>(lista: readonly T[]): T {
+  return lista[Math.floor(Math.random() * lista.length)]
+}

@@ -79,15 +79,16 @@
   border-left: 0;
 }
 
-/* Versão menor, para telas com muito conteúdo (ex.: feira) */
+/* Versão menor, para telas com muito conteúdo (feira, panela) */
 .compacta .vo {
-  width: 5rem;
-  height: 5rem;
-  font-size: 3rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  font-size: 2.75rem;
 }
 
 .compacta .balao {
-  padding: var(--espaco-2);
+  padding: var(--espaco-1) var(--espaco-2);
+  font-size: var(--texto-base);
 }
 
 @media (max-width: 40rem) {

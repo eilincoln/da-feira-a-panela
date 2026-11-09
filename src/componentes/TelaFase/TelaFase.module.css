@@ -1,18 +1,35 @@
 .tela {
   max-width: 60rem;
   margin: 0 auto;
-  padding: var(--espaco-4);
+  padding: var(--espaco-2) var(--espaco-3);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: var(--espaco-4);
+  gap: var(--espaco-3);
   /* Cada fase entra deslizando de baixo, sinalizando "tela nova" */
   animation: entrar-subindo var(--duracao-longa) var(--curva-suave);
+}
+
+/* Telas com muitos itens (feira) usam mais largura para não precisar rolar */
+.larga {
+  max-width: 76rem;
+}
+
+/* Título à esquerda, botões do aplicador à direita (quebra em telas estreitas) */
+.cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-2) var(--espaco-3);
+  /* reserva a altura de um botão: a tela não "pula" quando os botões aparecem */
+  min-height: calc(var(--alvo-toque-min) + var(--espaco-2));
 }
 
 .etapa {
   margin: 0;
   color: var(--cor-texto-suave);
+  line-height: 1.2;
 }
 
 .titulo {
@@ -32,5 +49,6 @@
 .acoes {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--espaco-2);
 }

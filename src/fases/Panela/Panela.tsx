@@ -101,7 +101,7 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
     <TelaFase
       etapa={etapa}
       titulo="A panela"
-      descricao="Toque nos ingredientes na ordem em que eles vão para a panela."
+      descricao="Toque nos ingredientes na ordem de preparo."
       acoes={
         <>
           <Botao variante="secundario" onClick={() => dizer(FALAS.panelaInstrucao)}>
@@ -127,7 +127,8 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
           <p className={estilos.rotulo}>Sua sacola</p>
           <div className={estilos.sacola}>
             {ordemNaTela.map((id) => {
-              const jaFoi = sequencia.includes(id)
+              const posicao = sequencia.indexOf(id)
+              const jaFoi = posicao !== -1
               return (
                 <button
                   key={id}
@@ -136,10 +137,15 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
                   onClick={() => colocar(id)}
                   disabled={jaFoi}
                 >
-                  <span className={estilos.icone} aria-hidden="true">
-                    {jaFoi ? '·' : INGREDIENTES[id].icone}
-                  </span>
-                  {jaFoi ? 'na panela' : INGREDIENTES[id].nome}
+                  {/* Depois de colocado, o ícone vira o número da ordem: dá para
+                      conferir a sequência sem precisar de outra lista na tela */}
+                  {jaFoi ? (
+                    <span className={estilos.ordinal}>{posicao + 1}º</span>
+                  ) : (
+                    <span className={estilos.icone} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+                  )}
+                  {INGREDIENTES[id].nome}
+                  {jaFoi && <span className="sr-only">(na panela)</span>}
                 </button>
               )
             })}
@@ -163,15 +169,11 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
                     key={`${posicao}-${id ?? 'vazio'}`}
                     className={`${estilos.lugar} ${id ? estilos.ocupado : ''}`}
                   >
-                    <span className={estilos.numero}>{posicao + 1}º</span>
                     {id ? (
-                      <>
-                        <span className={estilos.icone} aria-hidden="true">{INGREDIENTES[id].icone}</span>
-                        {INGREDIENTES[id].nome}
-                      </>
-                    ) : (
-                      <span className="sr-only">vazio</span>
-                    )}
+                      <span className={estilos.iconeNaPanela} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+                    ) : null}
+                    <span className={estilos.numero}>{posicao + 1}º</span>
+                    <span className="sr-only">{id ? INGREDIENTES[id].nome : 'vazio'}</span>
                   </li>
                 )
               })}

@@ -6,7 +6,7 @@
      como reserva, se o áudio ainda não existir).
    O roteiro de gravação em docs/ deve ter exatamente estes arquivos.
    ========================================= */
-import { INGREDIENTES, TROCA, type IdIngrediente } from '../jogo/ingredientes'
+import { INGREDIENTES, type IdIngrediente, type Troca } from '../jogo/ingredientes'
 
 export type Fala = {
   arquivo: string
@@ -28,10 +28,6 @@ export const FALAS = {
     arquivo: 'receita-terminou',
     texto: 'Agora vamos à feira comprar tudo!',
   },
-  feiraTroca: {
-    arquivo: 'feira-troca',
-    texto: `Ah, esqueci! Troque a ${nomeMinusculo(TROCA.sai)} por ${nomeMinusculo(TROCA.entra)}.`,
-  },
   panelaInstrucao: {
     arquivo: 'panela-instrucao',
     texto: 'Agora vamos cozinhar! Coloque na panela na ordem que eu falei.',
@@ -44,4 +40,12 @@ export const FALAS = {
 
 export function falaDoIngrediente(id: IdIngrediente): Fala {
   return { arquivo: `ingrediente-${id}`, texto: INGREDIENTES[id].nome }
+}
+
+// Uma gravação para cada troca possível (ver TROCAS_POSSIVEIS).
+export function falaDaTroca({ sai, entra }: Troca): Fala {
+  return {
+    arquivo: `feira-troca-${sai}-${entra}`,
+    texto: `Ah, esqueci! Troque ${INGREDIENTES[sai].artigo} ${nomeMinusculo(sai)} por ${nomeMinusculo(entra)}.`,
+  }
 }

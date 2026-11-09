@@ -1,16 +1,24 @@
 import { useReducer } from 'react'
 import { Botao } from './componentes/Botao/Botao'
 import { TelaFase } from './componentes/TelaFase/TelaFase'
+import { Distrator } from './fases/Distrator/Distrator'
 import { Feira } from './fases/Feira/Feira'
 import { Panela } from './fases/Panela/Panela'
 import { Receita } from './fases/Receita/Receita'
 import { Resultados } from './fases/Resultados/Resultados'
 import { Treino } from './fases/Treino/Treino'
+import { criarEstadoInicial, reducerDoJogo } from './jogo/estadoDoJogo'
 import { INFO_DAS_FASES, ORDEM_DAS_FASES } from './jogo/fases'
-import { ESTADO_INICIAL, reducerDoJogo } from './jogo/estadoDoJogo'
+import { TAMANHO_INICIAL_DA_RECEITA } from './jogo/ingredientes'
+import { sortearSessao } from './jogo/sessao'
 
 function App() {
-  const [estado, despachar] = useReducer(reducerDoJogo, ESTADO_INICIAL)
+  // 3º argumento = função de inicialização: o sorteio roda UMA vez, quando o
+  // app abre. (Com só 2 argumentos, sortearSessao() rodaria a cada render.)
+  const [estado, despachar] = useReducer(reducerDoJogo, TAMANHO_INICIAL_DA_RECEITA, (tamanho) =>
+    criarEstadoInicial(sortearSessao(tamanho)),
+  )
+  const { sessao } = estado
 
   const info = INFO_DAS_FASES[estado.fase]
   const numero = ORDEM_DAS_FASES.indexOf(estado.fase) + 1
@@ -29,7 +37,7 @@ function App() {
       return (
         <Receita
           etapa={etapa}
-          receita={estado.receita}
+          receita={sessao.receita}
           aoConcluir={(apresentacoes) => despachar({ tipo: 'concluirReceita', apresentacoes })}
         />
       )
@@ -38,6 +46,8 @@ function App() {
       return (
         <Feira
           etapa={etapa}
+          barracas={sessao.barracas}
+          troca={sessao.troca}
           aoConcluir={(resultado) => despachar({ tipo: 'concluirFeira', resultado })}
         />
       )
@@ -51,12 +61,24 @@ function App() {
         />
       )
 
+    case 'distrator':
+      return (
+        <Distrator
+          etapa={etapa}
+          aoConcluir={(resultado) => despachar({ tipo: 'concluirDistrator', resultado })}
+        />
+      )
+
     case 'resultados':
       return (
         <Resultados
           etapa={etapa}
           estado={estado}
-          aoReiniciar={() => despachar({ tipo: 'reiniciar' })}
+          // O sorteio do jogo novo acontece AQUI, no evento do botão (pode ser impuro),
+          // e o reducer só recebe a sessão pronta.
+          aoReiniciar={() =>
+            despachar({ tipo: 'reiniciar', sessao: sortearSessao(TAMANHO_INICIAL_DA_RECEITA) })
+          }
         />
       )
 

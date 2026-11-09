@@ -1,10 +1,11 @@
 /* =========================================
-   BARRACAS DA FEIRA
+   BARRACAS DA FEIRA — a "identidade" de cada barraca
    Cada barraca tem 4 pistas ao mesmo tempo: feirante, cor, símbolo
    e nome. Na fase do almoço elas viram as perguntas "onde?" e "quem?".
    A cor nunca é a única pista (daltonismo): símbolo e nome também mudam.
+   O QUE cada barraca vende e ONDE ela fica na tela são sorteados a cada
+   jogo (ver sessao.ts).
    ========================================= */
-import type { IdIngrediente } from './ingredientes'
 
 export type IdBarraca = 'ze' | 'rosa' | 'tiao' | 'cida'
 
@@ -15,12 +16,10 @@ export type Barraca = {
   simbolo: string
   nomeDoSimbolo: string // para leitor de tela e para o aplicador
   cor: string // variável CSS de tokens.css
-  itens: readonly IdIngrediente[]
 }
 
-// Os itens da receita estão espalhados entre as barracas, e cada
-// barraca mistura itens da receita com distratores. A mandioca fica
-// numa barraca diferente da batata: trocar exige "ir a outro lugar".
+export const ITENS_POR_BARRACA = 4
+
 export const BARRACAS: readonly Barraca[] = [
   {
     id: 'ze',
@@ -29,7 +28,6 @@ export const BARRACAS: readonly Barraca[] = [
     simbolo: '★',
     nomeDoSimbolo: 'estrela',
     cor: 'var(--cor-barraca-azul)',
-    itens: ['cebola', 'pimentao', 'batata'],
   },
   {
     id: 'rosa',
@@ -38,7 +36,6 @@ export const BARRACAS: readonly Barraca[] = [
     simbolo: '●',
     nomeDoSimbolo: 'círculo',
     cor: 'var(--cor-barraca-ambar)',
-    itens: ['cenoura', 'berinjela', 'alho'],
   },
   {
     id: 'tiao',
@@ -47,7 +44,6 @@ export const BARRACAS: readonly Barraca[] = [
     simbolo: '▲',
     nomeDoSimbolo: 'triângulo',
     cor: 'var(--cor-barraca-roxa)',
-    itens: ['tomate', 'mandioca', 'pepino'],
   },
   {
     id: 'cida',
@@ -56,6 +52,5 @@ export const BARRACAS: readonly Barraca[] = [
     simbolo: '■',
     nomeDoSimbolo: 'quadrado',
     cor: 'var(--cor-barraca-petroleo)',
-    itens: ['milho', 'brocolis', 'couve'],
   },
 ]
