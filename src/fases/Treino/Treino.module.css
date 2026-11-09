@@ -25,6 +25,24 @@
   border-radius: var(--raio);
   font-size: var(--texto-grande);
   font-weight: 700;
+  transition: transform var(--duracao-curta) var(--curva-suave);
+}
+
+.opcao:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* O cartão certo "comemora" */
+.certo {
+  border-color: var(--cor-confirmacao);
+  border-width: 8px;
+  background: var(--cor-confirmacao-fundo);
+  animation: comemorar var(--duracao-longa) var(--curva-mola);
+}
+
+@keyframes comemorar {
+  30% { transform: scale(1.08) rotate(-2deg); }
+  60% { transform: scale(0.98) rotate(1deg); }
 }
 
 .opcao:disabled {
@@ -41,6 +59,12 @@
   border-color: var(--cor-confirmacao);
   border-width: 8px;
   background: var(--cor-confirmacao-fundo);
+  animation: chamar 1.2s ease-in-out infinite;
+}
+
+/* A dica "chama" de leve (menos de 1 ciclo por segundo) */
+@keyframes chamar {
+  50% { transform: scale(1.04); }
 }
 
 .textoDica {

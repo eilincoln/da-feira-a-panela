@@ -1,0 +1,99 @@
+.cena {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  animation: entrar-subindo var(--duracao-longa) var(--curva-suave);
+}
+
+.vo {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+  font-size: 5rem;
+  line-height: 1;
+}
+
+/* Enquanto fala, a vó "balança" de leve (1 ciclo por segundo, sem piscar) */
+.falando {
+  animation: falar 1s ease-in-out infinite;
+}
+
+/* Anel que se expande em volta da vó: "ela está falando" */
+.ondas {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: var(--foco-espessura) solid var(--cor-primaria);
+  animation: onda 1.5s var(--curva-suave) infinite;
+}
+
+@keyframes falar {
+  0%, 100% { transform: rotate(0) scale(1); }
+  30% { transform: rotate(-4deg) scale(1.04); }
+  60% { transform: rotate(3deg) scale(1.02); }
+}
+
+@keyframes onda {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.areaDoBalao {
+  flex: 1;
+}
+
+/* Balão de fala com "rabinho" apontando para a vó */
+.balao {
+  position: relative;
+  margin: 0;
+  padding: var(--espaco-3);
+  background: var(--cor-superficie);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+  transform-origin: left center; /* "sai" da boca da vó */
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.balao::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* triângulo feito só com bordas, encostado no lado esquerdo do balão */
+  left: calc(-0.75rem - var(--foco-espessura));
+  border: 0.75rem solid transparent;
+  border-right-color: var(--cor-texto-suave);
+  border-left: 0;
+}
+
+/* Versão menor, para telas com muito conteúdo (ex.: feira) */
+.compacta .vo {
+  width: 5rem;
+  height: 5rem;
+  font-size: 3rem;
+}
+
+.compacta .balao {
+  padding: var(--espaco-2);
+}
+
+@media (max-width: 40rem) {
+  .vo {
+    width: 5rem;
+    height: 5rem;
+    font-size: 3rem;
+  }
+}

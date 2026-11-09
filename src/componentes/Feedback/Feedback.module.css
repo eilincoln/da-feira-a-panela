@@ -8,6 +8,7 @@
   border-radius: var(--raio);
   font-size: var(--texto-grande);
   font-weight: 700;
+  animation: estourar var(--duracao-media) var(--curva-mola);
 }
 
 .icone {
@@ -27,4 +28,17 @@
   background: var(--cor-atencao-fundo);
   border-color: var(--cor-atencao);
   border-style: dashed; /* mais uma pista além da cor */
+  /* balanço leve, de "quase": nada brusco, para não soar como punição */
+  animation:
+    estourar var(--duracao-media) var(--curva-mola),
+    balancar var(--duracao-longa) ease-in-out var(--duracao-media);
+}
+
+.certo .icone {
+  animation: estourar var(--duracao-longa) var(--curva-mola) var(--duracao-curta) both;
+}
+
+@keyframes balancar {
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
 }

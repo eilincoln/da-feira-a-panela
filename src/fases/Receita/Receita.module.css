@@ -1,44 +1,5 @@
-.cena {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--espaco-3);
+.fala {
   margin-bottom: var(--espaco-4);
-}
-
-.vo {
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  background: var(--cor-destaque);
-  font-size: 5rem;
-  line-height: 1;
-}
-
-/* Balão de fala com "rabinho" apontando para a vó */
-.balao {
-  position: relative;
-  flex: 1;
-  margin: 0;
-  padding: var(--espaco-3);
-  background: var(--cor-superficie);
-  border: var(--foco-espessura) solid var(--cor-texto-suave);
-  border-radius: var(--raio);
-  font-size: var(--texto-grande);
-  font-weight: 700;
-}
-
-.balao::before {
-  content: '';
-  position: absolute;
-  top: 2.5rem;
-  /* triângulo feito só com bordas, encostado no lado esquerdo do balão */
-  left: calc(-0.75rem - var(--foco-espessura));
-  border: 0.75rem solid transparent;
-  border-right-color: var(--cor-texto-suave);
-  border-left: 0;
 }
 
 .lista {
@@ -50,6 +11,7 @@
   list-style: none;
 }
 
+/* Cada ingrediente "cai" na receita com um pulinho */
 .item {
   display: flex;
   flex-direction: column;
@@ -61,26 +23,40 @@
   border-radius: var(--raio);
   font-size: var(--texto-grande);
   font-weight: 700;
-  animation: aparecer 400ms ease-out;
+  animation: cair var(--duracao-longa) var(--curva-mola);
 }
 
 .icone {
   font-size: 3.5rem;
   line-height: 1;
+  /* o ícone gira de leve depois que o cartão chega */
+  animation: girinho var(--duracao-longa) ease-in-out var(--duracao-media);
 }
 
-/* O base.css já zera a animação para quem pediu "reduzir movimento" */
-@keyframes aparecer {
-  from {
+/* A lista inteira encolhe e some: "agora está só na memória" */
+.sumindo .item {
+  animation: sumir var(--duracao-longa) var(--curva-suave) forwards;
+}
+
+@keyframes cair {
+  0% {
     opacity: 0;
-    transform: translateY(0.5rem);
+    transform: translateY(-3rem) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0.5rem) scale(1.03);
   }
 }
 
-@media (max-width: 40rem) {
-  .vo {
-    width: 5rem;
-    height: 5rem;
-    font-size: 3rem;
+@keyframes girinho {
+  30% { transform: rotate(-12deg); }
+  70% { transform: rotate(8deg); }
+}
+
+@keyframes sumir {
+  to {
+    opacity: 0;
+    transform: scale(0.6) translateY(1rem);
   }
 }

@@ -1,14 +1,69 @@
 /* =========================================
-   VOZ — só síntese (texto → fala), nunca reconhecimento de fala.
+   VOZ — toca o áudio gravado; se ele não existir, usa a síntese
+   de voz do navegador como reserva. Nunca reconhecimento de fala.
    Funções que devolvem Promise: dá para usar `await falar(...)`
    e montar sequências (fala, espera, fala...) de forma legível.
    O AbortSignal permite interromper tudo (ex.: ao sair da tela).
    ========================================= */
+import type { Fala } from './falas'
 
-const VELOCIDADE = 0.85 // um pouco mais devagar que o normal, pensando em idosos
+const VELOCIDADE_DA_SINTESE = 0.9
 
-export function vozDisponivel(): boolean {
-  return 'speechSynthesis' in window
+// UM único elemento de áudio para o jogo inteiro. No Safari do iPad,
+// o áudio só é liberado depois que um elemento toca dentro de um toque
+// do usuário; reaproveitando o mesmo elemento, ele continua liberado.
+const player = typeof Audio === 'undefined' ? null : new Audio()
+
+export function falar(fala: Fala, sinal?: AbortSignal): Promise<void> {
+  return tocarGravacao(fala.arquivo, sinal).catch((erro: unknown) => {
+    if (import.meta.env.DEV) {
+      console.warn(`Áudio "${fala.arquivo}.mp3" não tocou; usando síntese de voz.`, erro)
+    }
+    return sintetizar(fala.texto, sinal)
+  })
+}
+
+function tocarGravacao(arquivo: string, sinal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!player) {
+      reject(new Error('Navegador sem suporte a áudio'))
+      return
+    }
+    if (sinal?.aborted) {
+      resolve()
+      return
+    }
+
+    function limpar() {
+      player!.onended = null
+      player!.onerror = null
+      sinal?.removeEventListener('abort', interromper)
+    }
+
+    function interromper() {
+      player!.pause()
+      limpar()
+      resolve()
+    }
+
+    player.onended = () => {
+      limpar()
+      resolve()
+    }
+    // Arquivo inexistente (404) ou formato inválido cai aqui → reserva
+    player.onerror = () => {
+      limpar()
+      reject(new Error(`Falha ao carregar ${arquivo}.mp3`))
+    }
+    sinal?.addEventListener('abort', interromper, { once: true })
+
+    // BASE_URL: funciona mesmo se o site for publicado numa subpasta
+    player.src = `${import.meta.env.BASE_URL}audio/${arquivo}.mp3`
+    player.play().catch((erro: unknown) => {
+      limpar()
+      reject(erro)
+    })
+  })
 }
 
 function escolherVoz(): SpeechSynthesisVoice | undefined {
@@ -20,16 +75,16 @@ function escolherVoz(): SpeechSynthesisVoice | undefined {
   return vozesPtBr.find((voz) => voz.localService) ?? vozesPtBr[0]
 }
 
-export function falar(texto: string, sinal?: AbortSignal): Promise<void> {
+function sintetizar(texto: string, sinal?: AbortSignal): Promise<void> {
   return new Promise((resolve) => {
-    if (!vozDisponivel() || sinal?.aborted) {
+    if (!('speechSynthesis' in window) || sinal?.aborted) {
       resolve()
       return
     }
 
     const fala = new SpeechSynthesisUtterance(texto)
     fala.lang = 'pt-BR'
-    fala.rate = VELOCIDADE
+    fala.rate = VELOCIDADE_DA_SINTESE
     const voz = escolherVoz()
     if (voz) fala.voice = voz
 

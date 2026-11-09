@@ -61,11 +61,15 @@ export function Treino({ etapa, aoConcluir }: TreinoProps) {
       <div className={estilos.opcoes}>
         {ITENS_DO_TREINO.map((item) => {
           const ehDica = mostrarDica && item.id === rodada.alvo
+          const ehCerto = acertou && item.id === rodada.alvo
+          const classes = [estilos.opcao, ehDica && estilos.dica, ehCerto && estilos.certo]
+            .filter(Boolean)
+            .join(' ')
           return (
             <button
               key={item.id}
               type="button"
-              className={`${estilos.opcao} ${ehDica ? estilos.dica : ''}`}
+              className={classes}
               onClick={() => tocar(item.id)}
               disabled={acertou}
             >
@@ -79,9 +83,11 @@ export function Treino({ etapa, aoConcluir }: TreinoProps) {
 
       {/* aria-live: leitores de tela anunciam a mudança sem mover o foco */}
       <div aria-live="polite">
-        {ultimoToque === 'certo' && <Feedback tipo="certo" mensagem="Isso mesmo!" />}
+        {/* key={tentativas}: cada toque recria o aviso, e a animação roda de novo
+            (senão, dois erros seguidos mostrariam o mesmo aviso parado) */}
+        {ultimoToque === 'certo' && <Feedback key={tentativas} tipo="certo" mensagem="Isso mesmo!" />}
         {ultimoToque === 'errado' && (
-          <Feedback tipo="tentarDeNovo" mensagem="Quase! Tente outra vez." />
+          <Feedback key={tentativas} tipo="tentarDeNovo" mensagem="Quase! Tente outra vez." />
         )}
       </div>
     </TelaFase>

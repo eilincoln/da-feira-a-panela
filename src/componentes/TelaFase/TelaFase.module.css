@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--espaco-4);
+  /* Cada fase entra deslizando de baixo, sinalizando "tela nova" */
+  animation: entrar-subindo var(--duracao-longa) var(--curva-suave);
 }
 
 .etapa {
