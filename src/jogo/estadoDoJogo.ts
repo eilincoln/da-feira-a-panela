@@ -4,6 +4,7 @@
    Não depende do React, então dá para testar sozinha.
    ========================================= */
 import { ORDEM_DAS_FASES, type Fase } from './fases'
+import type { ResultadoDaFeira } from './indicadores'
 import { montarReceita, TAMANHO_MINIMO_DA_RECEITA, type IdIngrediente } from './ingredientes'
 
 export type EstadoDoJogo = {
@@ -14,6 +15,8 @@ export type EstadoDoJogo = {
   receita: readonly IdIngrediente[]
   // Quantas vezes a receita foi ouvida (1 = sem repetição).
   apresentacoesDaReceita: number | null
+  // Dados brutos da feira (os indicadores são calculados a partir deles).
+  feira: ResultadoDaFeira | null
 }
 
 // União discriminada: o campo `tipo` diz qual ação é.
@@ -22,12 +25,14 @@ export type AcaoDoJogo =
   | { tipo: 'reiniciar' }
   | { tipo: 'concluirTreino'; tentativas: number }
   | { tipo: 'concluirReceita'; apresentacoes: number }
+  | { tipo: 'concluirFeira'; resultado: ResultadoDaFeira }
 
 export const ESTADO_INICIAL: EstadoDoJogo = {
   fase: 'treino',
   tentativasNoTreino: null,
   receita: montarReceita(TAMANHO_MINIMO_DA_RECEITA),
   apresentacoesDaReceita: null,
+  feira: null,
 }
 
 function proximaFase(fase: Fase): Fase {
@@ -55,6 +60,14 @@ export function reducerDoJogo(estado: EstadoDoJogo, acao: AcaoDoJogo): EstadoDoJ
       return {
         ...estado,
         apresentacoesDaReceita: acao.apresentacoes,
+        fase: proximaFase(estado.fase),
+      }
+
+    case 'concluirFeira':
+      if (estado.fase !== 'feira') return estado
+      return {
+        ...estado,
+        feira: acao.resultado,
         fase: proximaFase(estado.fase),
       }
 

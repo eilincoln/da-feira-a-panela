@@ -1,0 +1,124 @@
+.fala {
+  margin-bottom: var(--espaco-3);
+}
+
+.barracas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espaco-2);
+}
+
+.barraca {
+  border: var(--foco-espessura) solid var(--cor-barraca);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  overflow: hidden;
+  /* As barracas "montam" uma depois da outra (efeito cascata) */
+  animation: entrar-subindo var(--duracao-longa) var(--curva-mola) both;
+  animation-delay: calc(var(--ordem) * 120ms);
+}
+
+/* Faixa colorida com símbolo + nome do feirante (texto branco ≥ 8.4:1) */
+.toldo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+  margin: 0;
+  padding: var(--espaco-1) var(--espaco-2);
+  background: var(--cor-barraca);
+  color: #ffffff;
+  font-size: var(--texto-base);
+}
+
+/* Borda "ondulada" de toldo de feira, feita com gradiente (sem imagem) */
+.toldo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.75rem;
+  height: 0.75rem;
+  background: radial-gradient(circle at 50% 0, var(--cor-barraca) 0.7rem, transparent 0.75rem)
+    0 0 / 1.5rem 0.75rem repeat-x;
+}
+
+.simbolo {
+  font-size: var(--texto-grande);
+  line-height: 1;
+}
+
+.itens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-1);
+  padding: var(--espaco-1);
+  padding-top: var(--espaco-2); /* espaço para a borda ondulada */
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 7rem;
+  padding: var(--espaco-1);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: var(--texto-base);
+  font-weight: 700;
+  transition: transform var(--duracao-curta) var(--curva-suave);
+}
+
+/* Retorno imediato ao toque: o botão "afunda" */
+.item:active {
+  transform: scale(0.94);
+}
+
+.icone {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+/* Na sacola: fundo + borda grossa + selo "✓" (não depende só da cor) */
+.naSacola {
+  background: var(--cor-destaque);
+  border-color: var(--cor-primaria);
+  border-width: 8px;
+  /* Pulinho ao entrar na sacola: a animação roda quando a classe é aplicada */
+  animation: colocar var(--duracao-media) var(--curva-mola);
+}
+
+.naSacola .icone {
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+@keyframes colocar {
+  40% { transform: scale(1.1) rotate(-3deg); }
+  70% { transform: scale(0.97) rotate(1deg); }
+}
+
+.selo {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  font-size: 1.25rem;
+  animation: estourar var(--duracao-media) var(--curva-mola) var(--duracao-curta) both;
+}
+
+@media (max-width: 52rem) {
+  .barracas {
+    grid-template-columns: 1fr;
+  }
+}
