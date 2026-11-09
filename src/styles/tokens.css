@@ -1,0 +1,42 @@
+/* =========================================
+   DESIGN TOKENS — Da Feira à Panela
+   Contraste verificado (WCAG 2.2 nível AAA ≥ 7:1)
+   ========================================= */
+:root {
+  /* ---- Cores: base ---- */
+  --cor-fundo: #f3f8f1;          /* verde quase branco */
+  --cor-superficie: #ffffff;     /* cartões e painéis */
+  --cor-destaque: #dcebd6;       /* fundo de item selecionado */
+
+  /* ---- Cores: texto ---- */
+  --cor-texto: #14261a;          /* 14.7:1 sobre o fundo */
+  --cor-texto-suave: #34493a;    /* 9.0:1 sobre o fundo */
+
+  /* ---- Cores: ação ---- */
+  --cor-primaria: #1e5a36;       /* 8.2:1 com texto branco */
+  --cor-primaria-hover: #14432a; /* 11.2:1 com texto branco */
+  --cor-sobre-primaria: #ffffff;
+
+  /* ---- Cores: feedback (eixo azul/âmbar, seguro para daltonismo) ---- */
+  --cor-atencao: #7a3d00;        /* âmbar escuro: 7.8:1 — NUNCA vermelho */
+  --cor-foco: #0b4a9e;           /* azul: contrasta com todo o verde */
+
+  /* ---- Tipografia ---- */
+  --fonte-base: "Atkinson Hyperlegible", Verdana, sans-serif;
+  --texto-base: 1.5rem;          /* 24px */
+  --texto-grande: 2rem;          /* 32px */
+  --texto-titulo: 2.75rem;       /* 44px */
+  --altura-linha: 1.5;
+
+  /* ---- Espaçamento (escala de 8px) ---- */
+  --espaco-1: 0.5rem;
+  --espaco-2: 1rem;
+  --espaco-3: 1.5rem;
+  --espaco-4: 2rem;
+  --espaco-6: 3rem;
+
+  /* ---- Interação ---- */
+  --alvo-toque-min: 4rem;        /* 64px: acima do mínimo AAA de 44px */
+  --raio: 1rem;
+  --foco-espessura: 4px;
+}
