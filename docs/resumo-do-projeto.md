@@ -1,7 +1,7 @@
 # Da Feira à Panela — resumo do projeto para a parte escrita
 
 > Documento de apoio para a ficha explicativa do **NeuroGame Lab** (Neurociência Cognitiva e Reabilitação).
-> Atualizado em **09/11/2026**. Apresentação: **23/11/2026**.
+> Atualizado em **09/11/2026** (inclui a fase da panela). Apresentação: **23/11/2026**.
 > Parte técnica (app): Lincoln. Parte escrita: estudante de Psicologia.
 
 ---
@@ -22,8 +22,8 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 | **Fase 1 — A receita** | ✅ pronto (aguardando a gravação da voz) |
 | **Fase 2 — A feira** | ✅ pronto |
 | Animações | ✅ pronto |
-| Fase 3 — A panela | ⏳ próximo passo |
-| Distrator (intervalo de 5 a 10 min) | ⏳ a fazer |
+| **Fase 3 — A panela** | ✅ pronto |
+| Distrator (intervalo de 5 a 10 min) | ⏳ próximo passo |
 | Fase 4 — O almoço (memória episódica) | ⏳ a fazer |
 | Painel de resultados completo + exportação | ⏳ a fazer (já existe uma versão provisória) |
 | Adaptação de dificuldade (3 → 7 itens) | ⏳ a fazer |
@@ -101,10 +101,26 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 
 > *Span*: será calculado quando a adaptação de dificuldade (3 → 7 itens) estiver pronta. **Fica para vocês definirem juntos**: o maior tamanho de receita lembrado sem erros, ou outro critério?
 
-### Fase 3 — A panela — ⏳ próximo passo
-- **Planejado:** colocar os ingredientes na panela **na ordem de preparo** (a mesma ordem em que a vó falou, já com a troca).
-- **O que mede:** a memória de trabalho **sequencial**.
-- **Indicador:** **erros de ordem**.
+### Fase 3 — A panela — ✅ pronto
+- **O que acontece:** a vó diz *"Agora vamos cozinhar! Coloque na panela na ordem que eu falei."* Aparecem os itens que a pessoa **comprou na feira**, embaralhados, e uma panela com lugares numerados (1º, 2º, 3º…). Cada toque coloca o item no próximo lugar da panela. O aplicador pode **desfazer o último** se a pessoa mudar de ideia. Quando a panela fica completa, a vó diz *"Hum, que cheiro bom!"* e o aplicador encerra a fase.
+- **O que mede:** a memória de trabalho **sequencial**, ou seja, a ordem de preparo que a vó falou na fase 1, já com a troca da feira.
+- **Decisão metodológica:** aparecem **os itens que a pessoa comprou**, incluindo os erros dela, e não a receita correta. É mais ecológico: ela cozinha o que levou para casa. Por isso, **a ordem só é avaliada entre os itens da receita**. Um item fora da receita (o pepino, por exemplo) vai para a panela, mas não tem posição "certa", porque a vó nunca falou dele. Ele é listado à parte e não entra na conta.
+- **Por que embaralhar:** se os itens aparecessem na ordem da compra, a própria tela daria uma dica da sequência.
+- **A batata e a mandioca ocupam o mesmo lugar** na ordem de preparo (a mandioca substituiu a batata). Se a pessoa não fez a troca e colocou a batata, a posição dela também é avaliada.
+
+**Indicadores:**
+
+| Indicador | Definição |
+|---|---|
+| **Itens avaliados** | itens colocados na panela que pertencem à receita (original ou trocada) |
+| **Posições corretas** | itens avaliados que estão no lugar certo da ordem de preparo |
+| **Erros de ordem** | itens avaliados fora do lugar certo (avaliados − posições corretas) |
+| **Pares invertidos** | quantos pares de itens estão trocados entre si (0 = ordem perfeita). É mais sensível que os erros de ordem: trocar só dois vizinhos vale 1, inverter a lista toda vale o máximo |
+| **Fora da receita** | itens na panela que não são da receita (listados, mas não entram na conta de ordem) |
+| **Desfeitos** | quantas vezes o aplicador desfez o último item (pode indicar incerteza) |
+| **Tempo** | duração da fase (só registrado, nunca exibido) |
+
+> Exemplo: receita *cebola → mandioca → cenoura*; a pessoa coloca *cenoura → mandioca → cebola*. Resultado: 1 posição correta (mandioca), 2 erros de ordem, 3 pares invertidos.
 
 ### Distrator — ⏳ a fazer
 - **Planejado:** uma atividade diferente de **5 a 10 minutos** entre a panela e o almoço, para que a fase 4 avalie a **memória episódica** de longo prazo, e não o que ainda está "fresco" na memória de trabalho.
@@ -199,7 +215,7 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - **Formato: MP3**, com o nome do arquivo **exatamente** como está na tabela (sem acentos, tudo minúsculo).
 - Os ingredientes devem ser ditos **cada um como se fosse o fim de uma frase** (entonação descendo: *"Cebola."*), e não como pergunta nem como lista emendada.
 
-**Falas atuais (16 arquivos):**
+**Falas atuais (18 arquivos):**
 
 | Arquivo | O que dizer |
 |---|---|
@@ -207,6 +223,8 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 | `receita-para-sopa.mp3` | Para a sopa, vamos precisar de: |
 | `receita-terminou.mp3` | Agora vamos à feira comprar tudo! |
 | `feira-troca.mp3` | Ah, esqueci! Troque a batata por mandioca. |
+| `panela-instrucao.mp3` | Agora vamos cozinhar! Coloque na panela na ordem que eu falei. |
+| `panela-terminou.mp3` | Hum, que cheiro bom! Agora vamos descansar um pouco. |
 | `ingrediente-cebola.mp3` | Cebola. |
 | `ingrediente-alho.mp3` | Alho. |
 | `ingrediente-tomate.mp3` | Tomate. |
@@ -222,7 +240,7 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 
 > Os ingredientes que não estão na receita (pimentão, berinjela, pepino, brócolis) já entram na gravação porque vão aparecer nas perguntas de reconhecimento do almoço.
 >
-> **As falas da panela, do intervalo e do almoço** ainda serão definidas. Elas virão numa segunda lista curta, assim que essas fases forem desenhadas.
+> **As falas do intervalo e do almoço** ainda serão definidas. Elas virão numa segunda lista curta, assim que essas fases forem desenhadas.
 >
 > Enquanto os arquivos não existem, o jogo usa a voz sintética do navegador no lugar. Assim, dá para ir testando tudo antes da gravação.
 

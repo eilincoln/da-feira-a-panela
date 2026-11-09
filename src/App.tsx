@@ -2,6 +2,7 @@ import { useReducer } from 'react'
 import { Botao } from './componentes/Botao/Botao'
 import { TelaFase } from './componentes/TelaFase/TelaFase'
 import { Feira } from './fases/Feira/Feira'
+import { Panela } from './fases/Panela/Panela'
 import { Receita } from './fases/Receita/Receita'
 import { Resultados } from './fases/Resultados/Resultados'
 import { Treino } from './fases/Treino/Treino'
@@ -38,6 +39,15 @@ function App() {
         <Feira
           etapa={etapa}
           aoConcluir={(resultado) => despachar({ tipo: 'concluirFeira', resultado })}
+        />
+      )
+
+    case 'panela':
+      return (
+        <Panela
+          etapa={etapa}
+          itens={estado.feira?.sacolaFinal ?? []}
+          aoConcluir={(resultado) => despachar({ tipo: 'concluirPanela', resultado })}
         />
       )
 

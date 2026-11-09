@@ -5,18 +5,12 @@ import { TelaFase } from '../../componentes/TelaFase/TelaFase'
 import { BARRACAS } from '../../jogo/barracas'
 import type { ResultadoDaFeira, Toque } from '../../jogo/indicadores'
 import { INGREDIENTES, type IdIngrediente } from '../../jogo/ingredientes'
+import { msDesde } from '../../jogo/utilidades'
 import { FALAS } from '../../voz/falas'
 import { falar } from '../../voz/voz'
 import estilos from './Feira.module.css'
 
 type Etapa = 'compras' | 'troca'
-
-// Fora do componente: ler o relógio é "impuro" (cada chamada dá um valor
-// diferente), e o React exige que o render seja puro. Aqui ela só é
-// chamada dentro de eventos (toques), nunca durante o render.
-function msDesde(inicio: number) {
-  return Math.round(performance.now() - inicio)
-}
 
 type FeiraProps = {
   etapa: string

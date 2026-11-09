@@ -1,0 +1,175 @@
+.fala {
+  margin-bottom: var(--espaco-3);
+}
+
+.rotulo {
+  margin: 0 0 var(--espaco-1);
+  color: var(--cor-texto-suave);
+}
+
+.sacola {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-4);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 7rem;
+  padding: var(--espaco-1);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: var(--texto-base);
+  font-weight: 700;
+  transition: transform var(--duracao-curta) var(--curva-suave);
+}
+
+.item:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+/* Já foi para a panela: o lugar continua (a tela não "pula"), mas vazio */
+.item:disabled {
+  cursor: default;
+  border-style: dashed;
+  background: transparent;
+  color: var(--cor-texto-suave);
+}
+
+.icone {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+/* ---- A panela (desenhada só com CSS) ---- */
+.areaDaPanela {
+  position: relative;
+  padding-top: var(--espaco-3);
+}
+
+/* Bolhas sobem a cada ingrediente que cai (recriadas pelo `key`) */
+.bolhas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: flex;
+  gap: var(--espaco-2);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bolhas span {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid var(--cor-texto-suave);
+  opacity: 0;
+  animation: bolha var(--duracao-longa) var(--curva-suave);
+}
+
+.bolhas span:nth-child(2) { animation-delay: 120ms; }
+.bolhas span:nth-child(3) { animation-delay: 240ms; }
+
+@keyframes bolha {
+  from {
+    opacity: 1;
+    transform: translateY(1.5rem) scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1.5rem) scale(1.2);
+  }
+}
+
+.panela {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--espaco-2);
+  min-height: 9rem;
+  margin: 0 var(--espaco-4);
+  padding: var(--espaco-3);
+  list-style: none;
+  background: var(--cor-superficie);
+  border: 8px solid var(--cor-texto-suave);
+  border-top-width: 12px;
+  border-radius: 0 0 4rem 4rem;
+}
+
+/* Alças */
+.panela::before,
+.panela::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  width: 2.5rem;
+  height: 1.5rem;
+  border: 8px solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+}
+
+.panela::before { left: -3.5rem; }
+.panela::after { right: -3.5rem; }
+
+.lugar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 7rem;
+  min-height: 6rem;
+  padding: var(--espaco-1);
+  border: var(--foco-espessura) dashed var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-weight: 700;
+}
+
+.lugar .numero {
+  color: var(--cor-texto-suave);
+}
+
+.ocupado {
+  border-style: solid;
+  border-color: var(--cor-primaria);
+  background: var(--cor-destaque);
+  animation: cair var(--duracao-longa) var(--curva-mola);
+}
+
+.ocupado .numero {
+  color: var(--cor-primaria);
+}
+
+@keyframes cair {
+  0% {
+    opacity: 0;
+    transform: translateY(-4rem) scale(0.7);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0.4rem) scale(1.05);
+  }
+}
+
+.vazia {
+  margin: 0;
+  font-size: var(--texto-grande);
+}
+
+@media (max-width: 40rem) {
+  .panela {
+    margin: 0;
+  }
+
+  .panela::before,
+  .panela::after {
+    display: none;
+  }
+}

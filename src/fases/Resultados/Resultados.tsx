@@ -1,7 +1,11 @@
 import { Botao } from '../../componentes/Botao/Botao'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
 import type { EstadoDoJogo } from '../../jogo/estadoDoJogo'
-import { calcularIndicadoresDaFeira, type Comparacao } from '../../jogo/indicadores'
+import {
+  calcularIndicadoresDaFeira,
+  calcularIndicadoresDaPanela,
+  type Comparacao,
+} from '../../jogo/indicadores'
 import { INGREDIENTES, type IdIngrediente } from '../../jogo/ingredientes'
 import estilos from './Resultados.module.css'
 
@@ -38,6 +42,7 @@ function LinhasDaComparacao({ comparacao }: { comparacao: Comparacao }) {
 export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
   // Indicadores CALCULADOS aqui, a partir dos dados brutos do estado.
   const feira = estado.feira && calcularIndicadoresDaFeira(estado.receita, estado.feira)
+  const panela = estado.panela && calcularIndicadoresDaPanela(estado.receita, estado.panela)
 
   return (
     <TelaFase
@@ -84,6 +89,30 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
             </dl>
           </section>
         </>
+      )}
+
+      {panela && estado.panela && (
+        <section className={estilos.secao}>
+          <h2>Panela — ordem</h2>
+          <dl className={estilos.dados}>
+            <dt>Ordem colocada</dt>
+            <dd>{nomes(estado.panela.sequencia)}</dd>
+            <dt>Avaliados</dt>
+            <dd>{panela.avaliados.length} (só itens da receita)</dd>
+            <dt>Posições corretas</dt>
+            <dd>{panela.posicoesCorretas.length} ({nomes(panela.posicoesCorretas)})</dd>
+            <dt>Erros de ordem</dt>
+            <dd>{panela.errosDeOrdem}</dd>
+            <dt>Pares invertidos</dt>
+            <dd>{panela.paresInvertidos}</dd>
+            <dt>Fora da receita</dt>
+            <dd>{nomes(panela.foraDaReceita)} (não entram na conta)</dd>
+            <dt>Desfeitos</dt>
+            <dd>{estado.panela.desfeitos}</dd>
+            <dt>Tempo</dt>
+            <dd>{segundos(estado.panela.duracaoMs)}</dd>
+          </dl>
+        </section>
       )}
     </TelaFase>
   )

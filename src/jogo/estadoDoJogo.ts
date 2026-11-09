@@ -4,7 +4,7 @@
    Não depende do React, então dá para testar sozinha.
    ========================================= */
 import { ORDEM_DAS_FASES, type Fase } from './fases'
-import type { ResultadoDaFeira } from './indicadores'
+import type { ResultadoDaFeira, ResultadoDaPanela } from './indicadores'
 import { montarReceita, TAMANHO_MINIMO_DA_RECEITA, type IdIngrediente } from './ingredientes'
 
 export type EstadoDoJogo = {
@@ -17,6 +17,7 @@ export type EstadoDoJogo = {
   apresentacoesDaReceita: number | null
   // Dados brutos da feira (os indicadores são calculados a partir deles).
   feira: ResultadoDaFeira | null
+  panela: ResultadoDaPanela | null
 }
 
 // União discriminada: o campo `tipo` diz qual ação é.
@@ -26,6 +27,7 @@ export type AcaoDoJogo =
   | { tipo: 'concluirTreino'; tentativas: number }
   | { tipo: 'concluirReceita'; apresentacoes: number }
   | { tipo: 'concluirFeira'; resultado: ResultadoDaFeira }
+  | { tipo: 'concluirPanela'; resultado: ResultadoDaPanela }
 
 export const ESTADO_INICIAL: EstadoDoJogo = {
   fase: 'treino',
@@ -33,6 +35,7 @@ export const ESTADO_INICIAL: EstadoDoJogo = {
   receita: montarReceita(TAMANHO_MINIMO_DA_RECEITA),
   apresentacoesDaReceita: null,
   feira: null,
+  panela: null,
 }
 
 function proximaFase(fase: Fase): Fase {
@@ -68,6 +71,14 @@ export function reducerDoJogo(estado: EstadoDoJogo, acao: AcaoDoJogo): EstadoDoJ
       return {
         ...estado,
         feira: acao.resultado,
+        fase: proximaFase(estado.fase),
+      }
+
+    case 'concluirPanela':
+      if (estado.fase !== 'panela') return estado
+      return {
+        ...estado,
+        panela: acao.resultado,
         fase: proximaFase(estado.fase),
       }
 

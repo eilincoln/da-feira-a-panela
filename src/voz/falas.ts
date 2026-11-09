@@ -32,6 +32,14 @@ export const FALAS = {
     arquivo: 'feira-troca',
     texto: `Ah, esqueci! Troque a ${nomeMinusculo(TROCA.sai)} por ${nomeMinusculo(TROCA.entra)}.`,
   },
+  panelaInstrucao: {
+    arquivo: 'panela-instrucao',
+    texto: 'Agora vamos cozinhar! Coloque na panela na ordem que eu falei.',
+  },
+  panelaTerminou: {
+    arquivo: 'panela-terminou',
+    texto: 'Hum, que cheiro bom! Agora vamos descansar um pouco.',
+  },
 } as const satisfies Record<string, Fala>
 
 export function falaDoIngrediente(id: IdIngrediente): Fala {
