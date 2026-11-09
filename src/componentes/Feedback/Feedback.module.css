@@ -1,0 +1,30 @@
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  margin: 0;
+  padding: var(--espaco-2) var(--espaco-3);
+  border: var(--foco-espessura) solid;
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+}
+
+.icone {
+  font-size: var(--texto-titulo);
+  line-height: 1;
+}
+
+/* Eixo azul/âmbar: seguro para daltonismo. Nunca vermelho/verde. */
+.certo {
+  color: var(--cor-confirmacao);
+  background: var(--cor-confirmacao-fundo);
+  border-color: var(--cor-confirmacao);
+}
+
+.tentarDeNovo {
+  color: var(--cor-atencao);
+  background: var(--cor-atencao-fundo);
+  border-color: var(--cor-atencao);
+  border-style: dashed; /* mais uma pista além da cor */
+}

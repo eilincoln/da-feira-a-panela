@@ -1,0 +1,60 @@
+.instrucao {
+  margin: 0 0 var(--espaco-4);
+  font-size: var(--texto-titulo);
+  font-weight: 700;
+}
+
+.opcoes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-4);
+}
+
+.opcao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-1);
+  min-height: 12rem;
+  padding: var(--espaco-3);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+}
+
+.opcao:disabled {
+  cursor: default;
+}
+
+.icone {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+/* Dica: borda grossa azul + texto "Este aqui" (não só cor) */
+.dica {
+  border-color: var(--cor-confirmacao);
+  border-width: 8px;
+  background: var(--cor-confirmacao-fundo);
+}
+
+.textoDica {
+  font-size: var(--texto-base);
+  color: var(--cor-confirmacao);
+}
+
+/* Em telas estreitas (celular em pé), um embaixo do outro */
+@media (max-width: 40rem) {
+  .opcoes {
+    grid-template-columns: 1fr;
+  }
+
+  .opcao {
+    min-height: 8rem;
+  }
+}

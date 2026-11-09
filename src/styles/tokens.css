@@ -20,6 +20,9 @@
   /* ---- Cores: feedback (eixo azul/âmbar, seguro para daltonismo) ---- */
   --cor-atencao: #7a3d00;        /* âmbar escuro: 7.8:1 — NUNCA vermelho */
   --cor-foco: #0b4a9e;           /* azul: contrasta com todo o verde */
+  --cor-confirmacao: #0b4a9e;        /* azul = "certo": 8.4:1 no branco */
+  --cor-confirmacao-fundo: #e6eefa;  /* azul claro: texto azul 7.2:1 */
+  --cor-atencao-fundo: #fbf0e1;      /* âmbar claro: texto âmbar 7.5:1 */
 
   /* ---- Tipografia ---- */
   --fonte-base: "Atkinson Hyperlegible", Verdana, sans-serif;
