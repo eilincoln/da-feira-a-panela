@@ -1,0 +1,86 @@
+.cena {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-4);
+}
+
+.vo {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+  font-size: 5rem;
+  line-height: 1;
+}
+
+/* Balão de fala com "rabinho" apontando para a vó */
+.balao {
+  position: relative;
+  flex: 1;
+  margin: 0;
+  padding: var(--espaco-3);
+  background: var(--cor-superficie);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+}
+
+.balao::before {
+  content: '';
+  position: absolute;
+  top: 2.5rem;
+  /* triângulo feito só com bordas, encostado no lado esquerdo do balão */
+  left: calc(-0.75rem - var(--foco-espessura));
+  border: 0.75rem solid transparent;
+  border-right-color: var(--cor-texto-suave);
+  border-left: 0;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--espaco-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-1);
+  padding: var(--espaco-2);
+  background: var(--cor-superficie);
+  border: var(--foco-espessura) solid var(--cor-primaria);
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+  animation: aparecer 400ms ease-out;
+}
+
+.icone {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+/* O base.css já zera a animação para quem pediu "reduzir movimento" */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@media (max-width: 40rem) {
+  .vo {
+    width: 5rem;
+    height: 5rem;
+    font-size: 3rem;
+  }
+}
