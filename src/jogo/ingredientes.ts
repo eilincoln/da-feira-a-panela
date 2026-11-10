@@ -29,28 +29,27 @@ export type Ingrediente = {
   id: IdIngrediente
   nome: string
   artigo: 'a' | 'o' // para montar frases: "troque A batata", "troque O tomate"
-  icone: string // provisório: emojis mudam entre sistemas; trocar por SVG depois
   ordemDePreparo: number // usado na fase da panela (só a ordem relativa importa)
 }
 
 // Quem entra pela troca tem a MESMA ordem de quem sai (ocupa o lugar dele).
 export const INGREDIENTES: Record<IdIngrediente, Ingrediente> = {
-  cebola: { id: 'cebola', nome: 'Cebola', artigo: 'a', icone: '🧅', ordemDePreparo: 1 },
-  alho: { id: 'alho', nome: 'Alho', artigo: 'o', icone: '🧄', ordemDePreparo: 2 },
-  tomate: { id: 'tomate', nome: 'Tomate', artigo: 'o', icone: '🍅', ordemDePreparo: 3 },
-  pimentao: { id: 'pimentao', nome: 'Pimentão', artigo: 'o', icone: '🫑', ordemDePreparo: 3 },
-  batata: { id: 'batata', nome: 'Batata', artigo: 'a', icone: '🥔', ordemDePreparo: 4 },
-  mandioca: { id: 'mandioca', nome: 'Mandioca', artigo: 'a', icone: '🍠', ordemDePreparo: 4 },
-  cenoura: { id: 'cenoura', nome: 'Cenoura', artigo: 'a', icone: '🥕', ordemDePreparo: 5 },
-  abobora: { id: 'abobora', nome: 'Abóbora', artigo: 'a', icone: '🎃', ordemDePreparo: 5 },
-  milho: { id: 'milho', nome: 'Milho', artigo: 'o', icone: '🌽', ordemDePreparo: 6 },
-  couve: { id: 'couve', nome: 'Couve', artigo: 'a', icone: '🥬', ordemDePreparo: 7 },
-  berinjela: { id: 'berinjela', nome: 'Berinjela', artigo: 'a', icone: '🍆', ordemDePreparo: 8 },
-  pepino: { id: 'pepino', nome: 'Pepino', artigo: 'o', icone: '🥒', ordemDePreparo: 9 },
-  brocolis: { id: 'brocolis', nome: 'Brócolis', artigo: 'o', icone: '🥦', ordemDePreparo: 10 },
-  cogumelo: { id: 'cogumelo', nome: 'Cogumelo', artigo: 'o', icone: '🍄', ordemDePreparo: 11 },
-  pimenta: { id: 'pimenta', nome: 'Pimenta', artigo: 'a', icone: '🌶️', ordemDePreparo: 12 },
-  feijao: { id: 'feijao', nome: 'Feijão', artigo: 'o', icone: '🫘', ordemDePreparo: 13 },
+  cebola: { id: 'cebola', nome: 'Cebola', artigo: 'a', ordemDePreparo: 1 },
+  alho: { id: 'alho', nome: 'Alho', artigo: 'o', ordemDePreparo: 2 },
+  tomate: { id: 'tomate', nome: 'Tomate', artigo: 'o', ordemDePreparo: 3 },
+  pimentao: { id: 'pimentao', nome: 'Pimentão', artigo: 'o', ordemDePreparo: 3 },
+  batata: { id: 'batata', nome: 'Batata', artigo: 'a', ordemDePreparo: 4 },
+  mandioca: { id: 'mandioca', nome: 'Mandioca', artigo: 'a', ordemDePreparo: 4 },
+  cenoura: { id: 'cenoura', nome: 'Cenoura', artigo: 'a', ordemDePreparo: 5 },
+  abobora: { id: 'abobora', nome: 'Abóbora', artigo: 'a', ordemDePreparo: 5 },
+  milho: { id: 'milho', nome: 'Milho', artigo: 'o', ordemDePreparo: 6 },
+  couve: { id: 'couve', nome: 'Couve', artigo: 'a', ordemDePreparo: 7 },
+  berinjela: { id: 'berinjela', nome: 'Berinjela', artigo: 'a', ordemDePreparo: 8 },
+  pepino: { id: 'pepino', nome: 'Pepino', artigo: 'o', ordemDePreparo: 9 },
+  brocolis: { id: 'brocolis', nome: 'Brócolis', artigo: 'o', ordemDePreparo: 10 },
+  cogumelo: { id: 'cogumelo', nome: 'Cogumelo', artigo: 'o', ordemDePreparo: 11 },
+  pimenta: { id: 'pimenta', nome: 'Pimenta', artigo: 'a', ordemDePreparo: 12 },
+  feijao: { id: 'feijao', nome: 'Feijão', artigo: 'o', ordemDePreparo: 13 },
 }
 
 export const TODOS_OS_INGREDIENTES = Object.keys(INGREDIENTES) as IdIngrediente[]

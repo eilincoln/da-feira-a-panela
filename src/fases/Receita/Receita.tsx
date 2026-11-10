@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { FalaDaVo } from '../../componentes/FalaDaVo/FalaDaVo'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
+import { sons } from '../../som/sons'
+import { IconeIngrediente } from '../../icones/IconeIngrediente'
 import { INGREDIENTES, type IdIngrediente } from '../../jogo/ingredientes'
 import { FALAS, falaDoIngrediente, type Fala } from '../../voz/falas'
 import { esperar, falar } from '../../voz/voz'
@@ -79,6 +81,9 @@ export function Receita({ etapa, receita, aoConcluir }: ReceitaProps) {
     if (signal.aborted) return
 
     // A lista some com animação: a partir daqui a informação só está na memória.
+    // Sem som enquanto os itens aparecem (competiria com a voz na hora de
+    // memorizar); só um "fuuu" quando a lista some.
+    sons.sumir()
     setEtapaDaTela('sumindo')
     await esperar(TEMPO_SUMINDO, signal)
     if (signal.aborted) return
@@ -115,7 +120,7 @@ export function Receita({ etapa, receita, aoConcluir }: ReceitaProps) {
       >
         {receita.slice(0, quantosVisiveis).map((id) => (
           <li key={id} className={estilos.item}>
-            <span className={estilos.icone} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+            <IconeIngrediente id={id} className={estilos.icone} />
             {INGREDIENTES[id].nome}
           </li>
         ))}

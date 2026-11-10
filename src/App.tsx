@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import { Botao } from './componentes/Botao/Botao'
 import { TelaFase } from './componentes/TelaFase/TelaFase'
+import { Almoco } from './fases/Almoco/Almoco'
 import { Distrator } from './fases/Distrator/Distrator'
 import { Feira } from './fases/Feira/Feira'
 import { Panela } from './fases/Panela/Panela'
@@ -66,6 +67,16 @@ function App() {
         <Distrator
           etapa={etapa}
           aoConcluir={(resultado) => despachar({ tipo: 'concluirDistrator', resultado })}
+        />
+      )
+
+    case 'almoco':
+      return (
+        <Almoco
+          etapa={etapa}
+          comprados={estado.feira?.sacolaFinal ?? []}
+          barracas={sessao.barracas}
+          aoConcluir={(resultado) => despachar({ tipo: 'concluirAlmoco', resultado })}
         />
       )
 

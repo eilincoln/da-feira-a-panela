@@ -1,0 +1,154 @@
+.fala {
+  margin-bottom: var(--espaco-2);
+}
+
+.orientacao {
+  margin: var(--espaco-2) 0 0;
+  padding: var(--espaco-2);
+  border-left: 8px solid var(--cor-texto-suave);
+  background: var(--cor-superficie);
+  color: var(--cor-texto-suave);
+}
+
+/* ---- Cartão de barraca (pista e pergunta "onde") ---- */
+.barraca {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-2) var(--espaco-3);
+  background: var(--cor-barraca);
+  color: #ffffff; /* ≥ 8.4:1 em todas as cores de barraca */
+  border: var(--foco-espessura) solid var(--cor-barraca);
+  border-radius: var(--raio);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+}
+
+.cartaoDaPista {
+  margin-bottom: var(--espaco-2);
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.simbolo {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+/* ---- Reconhecimento: 16 itens, sem agrupar por barraca (não dar pista de lugar) ---- */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espaco-1);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+  min-height: var(--alvo-toque-min);
+  padding: var(--espaco-1);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-weight: 700;
+  text-align: left;
+  transition: transform var(--duracao-curta) var(--curva-suave);
+}
+
+.item:active {
+  transform: scale(0.95);
+}
+
+.icone {
+  flex-shrink: 0;
+  font-size: 2.25rem;
+}
+
+.escolhido {
+  background: var(--cor-destaque);
+  border-color: var(--cor-primaria);
+  border-width: 8px;
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.selo {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  font-size: 1.25rem;
+}
+
+/* ---- Pergunta "onde" ---- */
+.perguntaOnde {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.itemEmDestaque {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-3);
+  margin: 0;
+  font-size: var(--texto-titulo);
+  font-weight: 700;
+  animation: estourar var(--duracao-media) var(--curva-mola);
+}
+
+.iconeGrande {
+  font-size: 7rem;
+}
+
+.opcoesDeBarraca {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espaco-2);
+}
+
+.botaoBarraca {
+  justify-content: center;
+  min-height: 6rem;
+  transition: transform var(--duracao-curta) var(--curva-suave);
+  animation: entrar-subindo var(--duracao-media) var(--curva-mola) both;
+  animation-delay: calc(var(--ordem) * 80ms);
+}
+
+.botaoBarraca:active {
+  transform: scale(0.95);
+}
+
+/* ---- Pergunta "quando" ---- */
+.opcoesQuando {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--espaco-3);
+}
+
+.opcaoQuando {
+  flex-direction: column;
+  justify-content: center;
+  min-height: 12rem;
+  font-size: var(--texto-grande);
+  text-align: center;
+}
+
+.opcaoQuando .icone {
+  font-size: 5rem;
+}
+
+@media (max-width: 52rem) {
+  .grade,
+  .opcoesDeBarraca {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

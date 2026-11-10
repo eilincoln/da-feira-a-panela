@@ -15,6 +15,9 @@ export type Barraca = {
   feirante: string
   simbolo: string
   nomeDoSimbolo: string // para leitor de tela e para o aplicador
+  // Pista do almoço, pronta porque o gênero muda ("da estrela azul", "do triângulo roxo").
+  // A cor é dita como uma pessoa a chamaria olhando a tela (o âmbar escuro parece marrom).
+  descricaoDaPista: string
   cor: string // variável CSS de tokens.css
 }
 
@@ -27,6 +30,7 @@ export const BARRACAS: readonly Barraca[] = [
     feirante: 'Seu Zé',
     simbolo: '★',
     nomeDoSimbolo: 'estrela',
+    descricaoDaPista: 'a da estrela azul',
     cor: 'var(--cor-barraca-azul)',
   },
   {
@@ -35,6 +39,7 @@ export const BARRACAS: readonly Barraca[] = [
     feirante: 'Dona Rosa',
     simbolo: '●',
     nomeDoSimbolo: 'círculo',
+    descricaoDaPista: 'a do círculo marrom',
     cor: 'var(--cor-barraca-ambar)',
   },
   {
@@ -43,6 +48,7 @@ export const BARRACAS: readonly Barraca[] = [
     feirante: 'Seu Tião',
     simbolo: '▲',
     nomeDoSimbolo: 'triângulo',
+    descricaoDaPista: 'a do triângulo roxo',
     cor: 'var(--cor-barraca-roxa)',
   },
   {
@@ -51,6 +57,7 @@ export const BARRACAS: readonly Barraca[] = [
     feirante: 'Dona Cida',
     simbolo: '■',
     nomeDoSimbolo: 'quadrado',
+    descricaoDaPista: 'a do quadrado verde-escuro',
     cor: 'var(--cor-barraca-petroleo)',
   },
 ]

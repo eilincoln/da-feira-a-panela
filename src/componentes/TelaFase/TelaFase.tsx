@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
+import { sons } from '../../som/sons'
 import estilos from './TelaFase.module.css'
 
 type TelaFaseProps = {
@@ -15,6 +16,16 @@ type TelaFaseProps = {
 // onde o idoso toca (menos risco de encerrar uma fase sem querer) e sem
 // ocupar uma faixa inteira no rodapé (sem rolagem no tablet).
 export function TelaFase({ etapa, titulo, descricao, larga = false, children, acoes }: TelaFaseProps) {
+  // Som de "tela nova" ao entrar. O ref evita tocar duas vezes no modo de
+  // desenvolvimento (o StrictMode monta, desmonta e monta de novo os efeitos,
+  // mas mantém os refs).
+  const jaTocouRef = useRef(false)
+  useEffect(() => {
+    if (jaTocouRef.current) return
+    jaTocouRef.current = true
+    sons.novaTela()
+  }, [])
+
   return (
     <main className={`${estilos.tela} ${larga ? estilos.larga : ''}`}>
       <header className={estilos.cabecalho}>

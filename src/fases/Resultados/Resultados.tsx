@@ -3,6 +3,7 @@ import { TelaFase } from '../../componentes/TelaFase/TelaFase'
 import type { EstadoDoJogo } from '../../jogo/estadoDoJogo'
 import {
   calcularIndicadoresDaFeira,
+  calcularIndicadoresDoAlmoco,
   calcularIndicadoresDaPanela,
   type Comparacao,
 } from '../../jogo/indicadores'
@@ -50,6 +51,7 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
   // Indicadores CALCULADOS aqui, a partir dos dados brutos do estado.
   const feira = estado.feira && calcularIndicadoresDaFeira(sessao.receita, sessao.troca, estado.feira)
   const panela = estado.panela && calcularIndicadoresDaPanela(sessao.receita, sessao.troca, estado.panela)
+  const almoco = estado.almoco && calcularIndicadoresDoAlmoco(estado.almoco)
 
   return (
     <TelaFase
@@ -138,6 +140,42 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
             <dd>{estado.distrator.rodadasCompletas}</dd>
             <dt>Toques errados</dt>
             <dd>{estado.distrator.toquesErrados}</dd>
+          </dl>
+        </section>
+      )}
+
+      {almoco && estado.almoco && (
+        <section className={estilos.secao}>
+          <h2>Almoço — memória episódica</h2>
+          <dl className={estilos.dados}>
+            <dt>Comprados (referência)</dt>
+            <dd>{almoco.total} ({nomes(estado.almoco.comprados)})</dd>
+            <dt>Recordação livre</dt>
+            <dd>{almoco.livre.acertos.length} de {almoco.total} ({nomes(almoco.livre.acertos)})</dd>
+            <dt>Intrusões (livre)</dt>
+            <dd>
+              {almoco.livre.intrusoes.length} ({nomes(almoco.livre.intrusoes)}) + {almoco.intrusoesLivresForaDaFeira} fora da feira
+            </dd>
+            <dt>Recuperados com pista</dt>
+            <dd>{almoco.recuperadosComPista.length} ({nomes(almoco.recuperadosComPista)})</dd>
+            <dt>Intrusões (pista)</dt>
+            <dd>{almoco.intrusoesComPista.length} ({nomes(almoco.intrusoesComPista)})</dd>
+            <dt>Ganho com pista</dt>
+            <dd>+{almoco.ganhoComPista} (total evocado: {almoco.evocadosNoTotal} de {almoco.total})</dd>
+            <dt>Reconhecimento</dt>
+            <dd>{almoco.reconhecimento.acertos.length} de {almoco.total} ({nomes(almoco.reconhecimento.acertos)})</dd>
+            <dt>Falsos alarmes</dt>
+            <dd>{almoco.reconhecimento.intrusoes.length} ({nomes(almoco.reconhecimento.intrusoes)})</dd>
+            <dt>Onde / quem</dt>
+            <dd>{almoco.ondeCertos} de {almoco.ondePerguntas}</dd>
+            <dt>Quando</dt>
+            <dd>{almoco.quandoCerto === null ? '—' : almoco.quandoCerto ? 'acertou' : 'errou'}</dd>
+            <dt>Item × associação</dt>
+            <dd>
+              {almoco.porcentagemItem ?? '—'}% reconheceu × {almoco.porcentagemAssociacao ?? '—'}% lembrou onde
+            </dd>
+            <dt>Tempo</dt>
+            <dd>{minutos(estado.almoco.duracaoMs)}</dd>
           </dl>
         </section>
       )}

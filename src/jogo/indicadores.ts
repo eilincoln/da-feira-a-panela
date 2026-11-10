@@ -3,6 +3,7 @@
    em números para a pesquisa. Guardamos só o que aconteceu
    (os toques); os indicadores são sempre CALCULADOS a partir disso.
    ========================================= */
+import type { IdBarraca } from './barracas'
 import { INGREDIENTES, receitaDepoisDaTroca, type IdIngrediente, type Troca } from './ingredientes'
 
 export type Toque = {
@@ -111,4 +112,70 @@ export type ResultadoDoDistrator = {
   rodadasCompletas: number
   toquesErrados: number
   duracaoMs: number
+}
+
+// ---------- ALMOÇO (memória episódica) ----------
+// Referência: o que a pessoa REALMENTE comprou (sacola final da feira),
+// e não a receita. A memória episódica é do episódio vivido.
+
+export type RespostaDeOnde = {
+  item: IdIngrediente
+  resposta: IdBarraca
+  certa: IdBarraca
+}
+
+export type ResultadoDoAlmoco = {
+  comprados: readonly IdIngrediente[] // sacola final, na ordem de compra
+  livre: {
+    lembrados: readonly IdIngrediente[] // marcados pelo aplicador
+    outros: number // itens falados que nem existem na feira
+  }
+  pista: readonly { barraca: IdBarraca; lembrados: readonly IdIngrediente[] }[]
+  reconhecimento: readonly IdIngrediente[] // tocados pela própria pessoa
+  onde: readonly RespostaDeOnde[]
+  quando: { opcoes: readonly IdIngrediente[]; resposta: IdIngrediente; certa: IdIngrediente } | null
+  duracaoMs: number
+}
+
+export function calcularIndicadoresDoAlmoco(resultado: ResultadoDoAlmoco) {
+  const { comprados } = resultado
+  const total = comprados.length
+
+  // 1. Recordação livre
+  const livre = compararListas(comprados, resultado.livre.lembrados)
+
+  // 2. Com pista: só conta o que NÃO tinha sido lembrado antes
+  const ditosComPista = resultado.pista.flatMap((p) => p.lembrados)
+  const recuperadosComPista = comprados.filter(
+    (id) => ditosComPista.includes(id) && !livre.acertos.includes(id),
+  )
+  const intrusoesComPista = ditosComPista.filter((id) => !comprados.includes(id))
+  const evocadosNoTotal = livre.acertos.length + recuperadosComPista.length
+
+  // 3. Reconhecimento (intrusão aqui se chama "falso alarme")
+  const reconhecimento = compararListas(comprados, resultado.reconhecimento)
+
+  // 4. Associação (onde/quem)
+  const ondeCertos = resultado.onde.filter((r) => r.resposta === r.certa).length
+
+  const porcentagem = (parte: number, todo: number) => (todo === 0 ? null : Math.round((parte / todo) * 100))
+
+  return {
+    total,
+    livre,
+    intrusoesLivresForaDaFeira: resultado.livre.outros,
+    recuperadosComPista,
+    intrusoesComPista,
+    // Ganho com pista: quantos itens a pista "destravou" (falha de evocação, não de armazenamento)
+    ganhoComPista: recuperadosComPista.length,
+    evocadosNoTotal,
+    reconhecimento,
+    ondeCertos,
+    ondePerguntas: resultado.onde.length,
+    quandoCerto: resultado.quando ? resultado.quando.resposta === resultado.quando.certa : null,
+    // Item × associação: reconhecer O QUÊ costuma resistir mais ao envelhecimento
+    // do que lembrar ONDE/COM QUEM (hipótese do déficit associativo).
+    porcentagemItem: porcentagem(reconhecimento.acertos.length, total),
+    porcentagemAssociacao: porcentagem(ondeCertos, resultado.onde.length),
+  }
 }

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { Feedback } from '../../componentes/Feedback/Feedback'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
+import { sons } from '../../som/sons'
 import { ERROS_ATE_A_DICA, ITENS_DO_TREINO, RODADAS_DO_TREINO } from './itensDoTreino'
 import estilos from './Treino.module.css'
 
@@ -29,8 +30,10 @@ export function Treino({ etapa, aoConcluir }: TreinoProps) {
   function tocar(idItem: string) {
     setTentativas((t) => t + 1)
     if (idItem === rodada.alvo) {
+      sons.certo()
       setUltimoToque('certo')
     } else {
+      sons.tenteDeNovo()
       setUltimoToque('errado')
       setErrosNaRodada((e) => e + 1)
     }

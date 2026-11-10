@@ -7,7 +7,12 @@
    dentro da ação.
    ========================================= */
 import { ORDEM_DAS_FASES, type Fase } from './fases'
-import type { ResultadoDaFeira, ResultadoDaPanela, ResultadoDoDistrator } from './indicadores'
+import type {
+  ResultadoDaFeira,
+  ResultadoDaPanela,
+  ResultadoDoAlmoco,
+  ResultadoDoDistrator,
+} from './indicadores'
 import type { Sessao } from './sessao'
 
 export type EstadoDoJogo = {
@@ -22,6 +27,7 @@ export type EstadoDoJogo = {
   feira: ResultadoDaFeira | null
   panela: ResultadoDaPanela | null
   distrator: ResultadoDoDistrator | null
+  almoco: ResultadoDoAlmoco | null
 }
 
 // União discriminada: o campo `tipo` diz qual ação é.
@@ -33,6 +39,7 @@ export type AcaoDoJogo =
   | { tipo: 'concluirFeira'; resultado: ResultadoDaFeira }
   | { tipo: 'concluirPanela'; resultado: ResultadoDaPanela }
   | { tipo: 'concluirDistrator'; resultado: ResultadoDoDistrator }
+  | { tipo: 'concluirAlmoco'; resultado: ResultadoDoAlmoco }
 
 export function criarEstadoInicial(sessao: Sessao): EstadoDoJogo {
   return {
@@ -43,6 +50,7 @@ export function criarEstadoInicial(sessao: Sessao): EstadoDoJogo {
     feira: null,
     panela: null,
     distrator: null,
+    almoco: null,
   }
 }
 
@@ -77,6 +85,10 @@ export function reducerDoJogo(estado: EstadoDoJogo, acao: AcaoDoJogo): EstadoDoJ
     case 'concluirDistrator':
       if (estado.fase !== 'distrator') return estado
       return { ...estado, distrator: acao.resultado, fase: proximaFase(estado.fase) }
+
+    case 'concluirAlmoco':
+      if (estado.fase !== 'almoco') return estado
+      return { ...estado, almoco: acao.resultado, fase: proximaFase(estado.fase) }
 
     case 'reiniciar':
       return criarEstadoInicial(acao.sessao)

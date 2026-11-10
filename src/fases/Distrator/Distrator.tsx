@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { Feedback } from '../../componentes/Feedback/Feedback'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
+import { sons } from '../../som/sons'
 import type { ResultadoDoDistrator } from '../../jogo/indicadores'
 import { embaralhar, msDesde, sortearUm } from '../../jogo/utilidades'
 import { ALVOS_POR_RODADA, ANIMAIS, CARTAS_POR_RODADA, TEMPO_MINIMO_MS, type Animal } from './animais'
@@ -59,15 +60,18 @@ export function Distrator({ etapa, aoConcluir }: DistratorProps) {
     setToques((n) => n + 1)
     if (rodada.cartas[posicao] !== rodada.alvo) {
       errosRef.current++
+      sons.tenteDeNovo()
       setUltimoToque('errado')
       return
     }
 
     const novas = [...encontradas, posicao]
+    if (novas.length < ALVOS_POR_RODADA) sons.certo()
     setEncontradas(novas)
     setUltimoToque('certo')
 
     if (novas.length === ALVOS_POR_RODADA) {
+      sons.rodadaCompleta()
       rodadasCompletasRef.current++
       proximaRodadaRef.current = setTimeout(() => {
         setRodada(sortearRodada(rodada.numero + 1, rodada.alvo))

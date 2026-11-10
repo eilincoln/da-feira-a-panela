@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { FalaDaVo } from '../../componentes/FalaDaVo/FalaDaVo'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
+import { sons } from '../../som/sons'
+import { IconeIngrediente } from '../../icones/IconeIngrediente'
 import type { ResultadoDaFeira, Toque } from '../../jogo/indicadores'
 import { INGREDIENTES, type IdIngrediente, type Troca } from '../../jogo/ingredientes'
 import type { BarracaDaSessao } from '../../jogo/sessao'
@@ -49,6 +51,9 @@ export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
       etapa: etapaDaTela,
       ms: msDesde(inicioRef.current),
     })
+    // Som NEUTRO: o mesmo para item certo e errado (a feira é avaliação)
+    if (jaEstava) sons.tirar()
+    else sons.colocar()
     setSacola(jaEstava ? sacola.filter((i) => i !== id) : [...sacola, id])
   }
 
@@ -127,7 +132,7 @@ export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
                     onClick={() => tocar(id)}
                   >
                     {naSacola && <span className={estilos.selo} aria-hidden="true">✓</span>}
-                    <span className={estilos.icone} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+                    <IconeIngrediente id={id} className={estilos.icone} />
                     {INGREDIENTES[id].nome}
                   </button>
                 )

@@ -1,7 +1,7 @@
 # Da Feira à Panela — resumo do projeto para a parte escrita
 
 > Documento de apoio para a ficha explicativa do **NeuroGame Lab** (Neurociência Cognitiva e Reabilitação).
-> Atualizado em **09/11/2026** (inclui panela, intervalo e sorteio a cada jogo). Apresentação: **23/11/2026**.
+> Atualizado em **09/11/2026** (as 4 fases estão prontas, com ícones próprios e efeitos sonoros). Apresentação: **23/11/2026**.
 > Parte técnica (app): Lincoln. Parte escrita: estudante de Psicologia.
 
 ---
@@ -25,7 +25,9 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 | **Fase 3 — A panela** | ✅ pronto |
 | **Intervalo (distrator)** | ✅ pronto |
 | **Sorteio a cada jogo + dificuldade maior** | ✅ pronto |
-| Fase 4 — O almoço (memória episódica) | ⏳ próximo passo |
+| **Fase 4 — O almoço** (memória episódica) | ✅ pronto |
+| **Ícones próprios** dos 16 ingredientes | ✅ pronto (a vó, os animais e os itens do treino ainda usam emoji) |
+| **Efeitos sonoros** | ✅ pronto |
 | Painel de resultados completo + exportação | ⏳ a fazer (já existe uma versão provisória) |
 | Adaptação de dificuldade (3 → 7 itens) | ⏳ a fazer |
 | Versão em papel/PDF (backup exigido pela professora) | ⏳ a fazer |
@@ -153,13 +155,39 @@ Isso dá 21 receitas diferentes × 3 trocas × milhares de arranjos de barracas.
 - **O que é registrado** (só para controle, não é indicador de memória): duração real do intervalo, rodadas completas e toques errados.
 - **Sem voz**, por enquanto: o aplicador lê a instrução, que também aparece escrita.
 
-### Fase 4 — O almoço — ⏳ a fazer
-- **Planejado:** perguntas em três níveis de apoio, sempre do menos para o mais fácil:
-  1. **Recordação livre:** *"O que você comprou na feira?"*
-  2. **Recordação com pista:** por exemplo, *"Na barraca da estrela, o que você comprou?"*
-  3. **Reconhecimento:** escolher entre opções.
-- **Dimensões:** o quê / onde / quando / quem.
-- **Indicadores:** memória de **item** × memória de **associação** (lembra a cenoura, mas lembra de quem comprou?) e **ganho com pista** (quanto o desempenho melhora do nível 1 para o 2 e o 3).
+### Fase 4 — O almoço — ✅ pronto
+A vó abre: *"Que almoço gostoso! Agora vamos lembrar da ida à feira."* Em seguida vêm **5 etapas, sempre do menor para o maior apoio**. A ordem importa: se o reconhecimento viesse antes, ele "entregaria" as respostas da recordação.
+
+**Referência de correção:** o que a pessoa **realmente comprou** (a sacola final da feira), e não a receita. A memória episódica é do episódio vivido, inclusive com os erros dela.
+
+| Etapa | O que acontece | Dimensão | Quem responde |
+|---|---|---|---|
+| 1. **Recordação livre** | *"Me conte: o que você comprou na feira?"* | o quê | a pessoa **fala**; o aplicador marca |
+| 2. **Recordação com pista** | para cada barraca onde ela comprou algo que **não** lembrou sozinha: *"E na barraca do Seu Zé, a da estrela azul, o que você comprou?"*, mostrando a barraca (cor, símbolo e feirante) **sem os itens** | o quê, com pista de onde/quem | a pessoa **fala**; o aplicador marca |
+| 3. **Reconhecimento** | *"Agora toque em tudo o que você comprou."* Os 16 itens aparecem **misturados, sem as barracas** (para não dar pista de lugar) | o quê | a pessoa **toca** |
+| 4. **Onde / com quem** | um item por vez (até 5): *"Em qual barraca você comprou isto?"* e as 4 barracas como resposta | onde + quem (associação) | a pessoa **toca** |
+| 5. **Quando** | *"Qual destes você comprou primeiro?"*, com o 1º comprado, um do meio e o último | quando (ordem temporal) | a pessoa **toca** |
+
+**Painel do aplicador (etapas 1 e 2):** a pessoa responde **falando** e o aplicador marca os nomes num painel com a lista de ingredientes, só em texto e em ordem alfabética. Como a tela é compartilhada, o painel **só abre depois que a pessoa terminou de responder** (botão "Registrar respostas"). Assim a lista não serve de "cola". Itens falados que nem existem na feira (por exemplo, "arroz") entram num contador próprio. Nas etapas de toque (3 a 5), o som é **neutro** e não há feedback de certo ou errado.
+
+**Indicadores (definições operacionais):**
+
+| Indicador | Definição |
+|---|---|
+| **Recordação livre** | itens comprados que a pessoa citou sem ajuda |
+| **Intrusões (livre)** | itens citados que ela **não** comprou, mais os itens que nem existem na feira |
+| **Recuperados com pista** | itens comprados que ela **não** citou na livre, mas citou com a pista |
+| **Ganho com pista** | número de itens recuperados com pista. Se for alto, sugere **falha de evocação** (a informação estava guardada, faltava o acesso) |
+| **Total evocado** | livre + recuperados com pista |
+| **Reconhecimento** | itens comprados que ela tocou |
+| **Falsos alarmes** | itens tocados no reconhecimento que ela **não** comprou |
+| **Onde / quem** | quantas vezes acertou a barraca (e, junto, o feirante) do item |
+| **Quando** | acertou ou não qual item comprou primeiro |
+| **Item × associação** | % de itens reconhecidos × % de barracas lembradas. A hipótese do déficit associativo (Naveh-Benjamin, 2000) prevê que, no envelhecimento, a associação cai mais que o item |
+| **Tempo** | duração do almoço (só registrado) |
+
+> Exemplo: comprou cebola, mandioca, cenoura e pepino. Na livre, lembrou só a cebola (e disse "tomate" e "arroz"). Com pista, lembrou a cenoura. No reconhecimento, tocou cebola, mandioca, cenoura e milho. Acertou 2 de 3 barracas.
+> Resultado: livre 1/4; intrusões 1 + 1 fora da feira; ganho com pista +1 (total evocado 2/4); reconhecimento 3/4 com 1 falso alarme; onde 2/3; **item 75% × associação 67%**.
 
 ---
 
@@ -200,6 +228,18 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - Todo texto falado também aparece escrito no balão, para quem ouve mal.
 - **O jogo fala, mas não escuta:** não usamos reconhecimento de voz, porque no Chrome o áudio seria enviado a servidores do Google, e dados de saúde são **dados sensíveis pela LGPD (art. 11)**.
 
+### Ícones próprios
+- Os 16 ingredientes ganharam **desenhos próprios (SVG)** no lugar dos emojis.
+- **Por quê:** emojis mudam de aparência entre aparelhos (Apple, Android, Windows), e num instrumento de avaliação **o estímulo precisa ser o mesmo para todos**. Além disso, alguns ingredientes não existiam em emoji: a mandioca era uma batata-doce e a abóbora tinha cara de Halloween.
+- **Cuidados de reconhecimento:** cores típicas de cada alimento, formas simples e **contorno escuro** (a WCAG pede contraste de 3:1 para elementos gráficos). A mandioca tem casca marrom e ponta cortada branca, para não ser confundida com a batata. O cogumelo é marrom e sem pintas, para não parecer venenoso.
+
+### Efeitos sonoros
+- Sons curtos, **gerados pelo próprio app** (sem arquivos e sem direitos autorais de terceiros).
+- **Frequências médias (≈200 a 1000 Hz)**, porque a perda auditiva da idade atinge primeiro os agudos. Volume baixo e sem estalos.
+- O **"tente de novo" é um tom descendente calmo, nunca uma buzina**, para não soar como punição.
+- **Regra de avaliação:** nas fases que **medem** memória (feira, panela e almoço), o som é **neutro**: o mesmo para item certo e errado. Sons de "certo" só aparecem no treino e no intervalo, que não são medidas.
+- Na receita, **não há som enquanto os itens aparecem**, para não competir com a voz no momento de memorizar. Há só um som quando a lista some.
+
 ### Animações
 - Elas aparecem nos momentos certos e são curtas: tela nova entrando, ingrediente "caindo" na receita, lista sumindo, item pulando para a sacola, vó balançando enquanto fala, aviso de certo ou "quase".
 - **Função:** guiar a atenção para o que importa em cada momento e deixar claro o que mudou na tela.
@@ -217,7 +257,8 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 ## 8. Limitações (sugestão para a ficha)
 
 - É um **protótipo acadêmico**: não tem estudo de validade, fidedignidade nem normas. **Não é um instrumento diagnóstico.**
-- As imagens dos ingredientes ainda são provisórias (emojis), e o desenho muda conforme o aparelho. A mandioca, por exemplo, ainda usa o desenho de uma batata-doce, e a abóbora, o de uma abóbora de Halloween.
+- Os ícones dos ingredientes foram desenhados para o jogo, mas **não foram testados quanto a reconhecimento com idosos** (seria um bom estudo piloto: pedir para nomearem cada desenho). A vó, os animais do intervalo e os itens do treino ainda são emojis, que mudam conforme o aparelho.
+- No almoço, a tela é compartilhada: o painel do aplicador só abre depois da resposta, mas um participante atento ainda poderia vê-lo. Um segundo aparelho para o aplicador resolveria isso numa versão futura.
 - A familiaridade com tecnologia pode influenciar o desempenho. Isso é parcialmente controlado pelo treino, mas não eliminado.
 - O **sorteio** faz com que participantes diferentes recebam versões diferentes do jogo (ver o ponto metodológico na seção 5).
 - A receita usa ingredientes conhecidos no Brasil. Hábitos alimentares regionais podem tornar alguns itens mais familiares que outros.
@@ -247,7 +288,7 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - **Formato: MP3**, com o nome do arquivo **exatamente** como está na tabela (sem acentos, tudo minúsculo).
 - Os ingredientes devem ser ditos **cada um como se fosse o fim de uma frase** (entonação descendo: *"Cebola."*), e não como pergunta nem como lista emendada.
 
-**Falas atuais (24 arquivos):**
+**Falas atuais (34 arquivos):**
 
 | Arquivo | O que dizer |
 |---|---|
@@ -259,6 +300,16 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 | `feira-troca-tomate-pimentao.mp3` | Ah, esqueci! Troque o tomate por pimentão. |
 | `panela-instrucao.mp3` | Agora vamos cozinhar! Coloque na panela na ordem que eu falei. |
 | `panela-terminou.mp3` | Hum, que cheiro bom! Agora vamos descansar um pouco. |
+| `almoco-ola.mp3` | Que almoço gostoso! Agora vamos lembrar da ida à feira. |
+| `almoco-livre.mp3` | Me conte: o que você comprou na feira? |
+| `almoco-pista-ze.mp3` | E na barraca do Seu Zé, a da estrela azul, o que você comprou? |
+| `almoco-pista-rosa.mp3` | E na barraca da Dona Rosa, a do círculo marrom, o que você comprou? |
+| `almoco-pista-tiao.mp3` | E na barraca do Seu Tião, a do triângulo roxo, o que você comprou? |
+| `almoco-pista-cida.mp3` | E na barraca da Dona Cida, a do quadrado verde-escuro, o que você comprou? |
+| `almoco-reconhecimento.mp3` | Agora toque em tudo o que você comprou. |
+| `almoco-onde.mp3` | Em qual barraca você comprou isto? |
+| `almoco-quando.mp3` | Qual destes você comprou primeiro? |
+| `almoco-fim.mp3` | Obrigada! Foi um almoço delicioso. |
 | `ingrediente-cebola.mp3` | Cebola. |
 | `ingrediente-alho.mp3` | Alho. |
 | `ingrediente-tomate.mp3` | Tomate. |
@@ -278,7 +329,7 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 
 > Todos os 16 ingredientes entram na gravação, inclusive os que nunca vão para a receita, porque vão aparecer nas perguntas de reconhecimento do almoço.
 >
-> **As falas do almoço** ainda serão definidas. Elas virão numa segunda lista curta, assim que essas fases forem desenhadas.
+> Na pergunta “onde”, o jogo toca `almoco-onde.mp3` e, logo depois, o nome do ingrediente (`ingrediente-*.mp3`). Por isso cada ingrediente deve ser gravado como uma palavra solta.
 >
 > Enquanto os arquivos não existem, o jogo usa a voz sintética do navegador no lugar. Assim, dá para ir testando tudo antes da gravação.
 

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
 import { FalaDaVo } from '../../componentes/FalaDaVo/FalaDaVo'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
+import { sons } from '../../som/sons'
+import { IconeIngrediente } from '../../icones/IconeIngrediente'
 import type { ResultadoDaPanela } from '../../jogo/indicadores'
 import { INGREDIENTES, type IdIngrediente } from '../../jogo/ingredientes'
 import { embaralhar, msDesde } from '../../jogo/utilidades'
@@ -61,6 +63,7 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
   function colocar(id: IdIngrediente) {
     const nova = [...sequencia, id]
     setSequencia(nova)
+    sons.panela()
     darTranco()
     if (nova.length === ordemNaTela.length) dizer(FALAS.panelaTerminou)
   }
@@ -82,6 +85,7 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
   }
 
   function desfazer() {
+    sons.tirar()
     setSequencia(sequencia.slice(0, -1))
     setDesfeitos((n) => n + 1)
     setFala(FALAS.panelaInstrucao)
@@ -142,7 +146,7 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
                   {jaFoi ? (
                     <span className={estilos.ordinal}>{posicao + 1}º</span>
                   ) : (
-                    <span className={estilos.icone} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+                    <IconeIngrediente id={id} className={estilos.icone} />
                   )}
                   {INGREDIENTES[id].nome}
                   {jaFoi && <span className="sr-only">(na panela)</span>}
@@ -170,7 +174,7 @@ export function Panela({ etapa, itens, aoConcluir }: PanelaProps) {
                     className={`${estilos.lugar} ${id ? estilos.ocupado : ''}`}
                   >
                     {id ? (
-                      <span className={estilos.iconeNaPanela} aria-hidden="true">{INGREDIENTES[id].icone}</span>
+                      <IconeIngrediente id={id} className={estilos.iconeNaPanela} />
                     ) : null}
                     <span className={estilos.numero}>{posicao + 1}º</span>
                     <span className="sr-only">{id ? INGREDIENTES[id].nome : 'vazio'}</span>

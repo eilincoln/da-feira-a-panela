@@ -1,0 +1,52 @@
+/* Visual diferente do resto do jogo (borda tracejada, título com ícone):
+   deixa claro que esta área é do aplicador, não do participante. */
+.painel {
+  padding: var(--espaco-2);
+  background: var(--cor-superficie);
+  border: var(--foco-espessura) dashed var(--cor-texto-suave);
+  border-radius: var(--raio);
+  animation: entrar-subindo var(--duracao-media) var(--curva-suave);
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-1) var(--espaco-2);
+  margin-bottom: var(--espaco-2);
+}
+
+.titulo {
+  margin: 0;
+  font-size: var(--texto-base);
+}
+
+.outros {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+}
+
+.opcoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--espaco-1);
+}
+
+/* Só texto, sem ícone: se o participante olhar, a dica visual é menor */
+.opcao {
+  padding: 0 var(--espaco-1);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  font-weight: 700;
+}
+
+.marcada {
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  border-color: var(--cor-primaria);
+  animation: estourar var(--duracao-curta) var(--curva-mola);
+}
