@@ -6,14 +6,7 @@
    "onde você comprou?" e precisa saber como era ESTA feira.
    ========================================= */
 import { BARRACAS, ITENS_POR_BARRACA, type Barraca } from './barracas'
-import {
-  PODEM_ENTRAR_NA_RECEITA,
-  porOrdemDePreparo,
-  TODOS_OS_INGREDIENTES,
-  TROCAS_POSSIVEIS,
-  type IdIngrediente,
-  type Troca,
-} from './ingredientes'
+import { porOrdemDePreparo, TODOS_OS_INGREDIENTES, type IdIngrediente, type Troca } from './ingredientes'
 import { embaralhar, sortearUm } from './utilidades'
 
 export type BarracaDaSessao = Barraca & {
@@ -28,11 +21,16 @@ export type Sessao = {
 }
 
 export function sortearSessao(tamanhoDaReceita: number): Sessao {
-  const troca = sortearUm(TROCAS_POSSIVEIS)
+  // Receita: N itens quaisquer entre os 16 (4.368 receitas possíveis com N = 5)
+  const receita = embaralhar(TODOS_OS_INGREDIENTES)
+    .slice(0, tamanhoDaReceita)
+    .toSorted(porOrdemDePreparo)
 
-  // O item que sai na troca PRECISA estar na receita; o resto é sorteado.
-  const outros = embaralhar(PODEM_ENTRAR_NA_RECEITA.filter((id) => id !== troca.sai))
-  const receita = [troca.sai, ...outros.slice(0, tamanhoDaReceita - 1)].toSorted(porOrdemDePreparo)
+  // Troca: sai um item da receita, entra um de fora dela
+  const troca: Troca = {
+    sai: sortearUm(receita),
+    entra: sortearUm(TODOS_OS_INGREDIENTES.filter((id) => !receita.includes(id))),
+  }
 
   return {
     receita,

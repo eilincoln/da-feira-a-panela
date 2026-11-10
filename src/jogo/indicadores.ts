@@ -4,7 +4,7 @@
    (os toques); os indicadores são sempre CALCULADOS a partir disso.
    ========================================= */
 import type { IdBarraca } from './barracas'
-import { INGREDIENTES, receitaDepoisDaTroca, type IdIngrediente, type Troca } from './ingredientes'
+import { ordemNaReceita, receitaDepoisDaTroca, type IdIngrediente, type Troca } from './ingredientes'
 
 export type Toque = {
   item: IdIngrediente
@@ -76,7 +76,7 @@ export function calcularIndicadoresDaPanela(
   const daReceita = new Set([...receita, ...receitaDepoisDaTroca(receita, troca)])
   const avaliados = resultado.sequencia.filter((id) => daReceita.has(id))
   const foraDaReceita = resultado.sequencia.filter((id) => !daReceita.has(id))
-  const ordem = (id: IdIngrediente) => INGREDIENTES[id].ordemDePreparo
+  const ordem = (id: IdIngrediente) => ordemNaReceita(id, troca)
 
   // Posição correta: o item está num lugar compatível com a ordem de preparo
   // (empates, como quem sai e quem entra juntos, aceitam as duas posições).

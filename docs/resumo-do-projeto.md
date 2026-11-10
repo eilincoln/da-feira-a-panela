@@ -82,16 +82,13 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
   | Seu Tião | roxo | ▲ triângulo |
   | Dona Cida | petróleo | ■ quadrado |
 
-  **O que cada barraca vende e em que posição ela aparece na tela são sorteados a cada jogo** (ver a seção "Sorteio a cada jogo", logo abaixo).
+  **A receita, o que cada barraca vende e a posição das barracas são sorteados a cada jogo** (ver a seção "Sorteio a cada jogo", logo abaixo).
 
-  A pessoa toca nos itens para colocá-los na sacola (e pode tocar de novo para tirar). O aplicador encerra as compras e então a vó pede **uma troca, sorteada entre três**:
-  - *"Ah, esqueci! Troque a batata por mandioca."*
-  - *"Ah, esqueci! Troque a cenoura por abóbora."*
-  - *"Ah, esqueci! Troque o tomate por pimentão."*
+  A pessoa toca nos itens para colocá-los na sacola (e pode tocar de novo para tirar). O aplicador encerra as compras e então a vó pede **uma troca sorteada**: um item da receita sai e um item de fora dela entra no lugar. Por exemplo: *"Ah, esqueci! Troque a batata por mandioca."*
 
   A pessoa faz a troca e o aplicador encerra a fase.
 - **Por que as barracas têm 3 pistas visuais:** elas criam o **contexto** do episódio. No almoço (fase 4), essas pistas viram as perguntas *onde?* e *com quem?*.
-- **Por que há itens que não estão na receita:** são **distratores**, legumes plausíveis numa sopa (berinjela, pepino, brócolis, cogumelo, pimenta, feijão, além dos itens de troca que não foram sorteados). Eles permitem medir **intrusões**. Com 16 opções e 5 itens certos, sobram 11 itens "tentadores".
+- **Por que há itens que não estão na receita:** os 11 ingredientes que não foram sorteados para a receita viram **distratores** daquele jogo. Todos são plausíveis numa sopa, então a intrusão é "tentadora". Eles permitem medir **intrusões**.
 - **O item novo da troca sempre fica numa barraca diferente do antigo:** assim, a troca exige buscar em outro lugar, e não apenas tocar no item ao lado.
 - **Sem feedback de certo/errado:** nesta fase, que é de avaliação, o jogo **não** diz se a pessoa acertou. Um feedback ensinaria a resposta e alteraria a medida.
 
@@ -112,20 +109,21 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 > *Span*: será calculado quando a adaptação de dificuldade (3 → 7 itens) estiver pronta. **Fica para vocês definirem juntos**: o maior tamanho de receita lembrado sem erros, ou outro critério?
 
 ### Sorteio a cada jogo — ✅ pronto
-Cada vez que um jogo novo começa, o app sorteia:
+Cada jogo novo sorteia **tudo** o que a pessoa vê:
 
-| O que é sorteado | Como | Restrição |
-|---|---|---|
-| **A troca** | 1 entre 3 possíveis (batata→mandioca, cenoura→abóbora, tomate→pimentão) | São só 3 porque cada uma precisa de uma gravação de voz própria |
-| **A receita** | 5 itens entre 7 possíveis (cebola, alho, tomate, batata, cenoura, milho, couve) | O item que sai na troca está sempre na receita |
-| **O que cada barraca vende** | os 16 itens são embaralhados e divididos em 4 grupos de 4 | O item novo da troca nunca fica na mesma barraca do antigo |
-| **A posição das barracas** | as 4 barracas aparecem em ordem embaralhada | — |
+| O que é sorteado | Como |
+|---|---|
+| **Treino** | 3 entre 8 objetos (cesta, chapéu, carteira, guarda-chuva, óculos, chave, relógio, livro), em posições e ordem de pedido sorteadas |
+| **A receita** | 5 itens entre **os 16** ingredientes (4.368 receitas possíveis), apresentados na ordem de preparo |
+| **A troca** | sai um item da receita e entra um item de fora dela (até 240 combinações) |
+| **O que cada barraca vende** | os 16 itens embaralhados em 4 barracas de 4 (o item novo da troca nunca fica na mesma barraca do antigo) |
+| **A posição das barracas** | embaralhada |
 
-Isso dá 21 receitas diferentes × 3 trocas × milhares de arranjos de barracas. O sorteio de cada jogo fica **registrado nos resultados** (receita, troca e o que cada barraca vendia), porque o almoço precisa saber como era *aquela* feira.
+Numa simulação de 2.000 jogos seguidos, **um jogo repetiu em média 1,5 dos 5 ingredientes do jogo anterior**, o que é o esperado pelo acaso. Antes, com a receita sorteada entre só 7 itens, pelo menos 3 sempre se repetiam. O sorteio de cada jogo fica **registrado no relatório**.
 
-**Por quê:** se o jogo fosse sempre igual, quem repetisse (por exemplo, numa reavaliação ou no uso como treino de reabilitação) poderia simplesmente decorar as respostas, e o jogo deixaria de medir memória de trabalho.
+**Por quê:** se o jogo fosse sempre igual (ou quase), quem repetisse, numa reavaliação ou no uso como treino de reabilitação, poderia decorar as respostas, e o jogo deixaria de medir memória.
 
-> ⚠️ **Ponto metodológico para a ficha:** com o sorteio, **participantes diferentes recebem versões diferentes** do jogo, e algumas podem ser um pouco mais fáceis que outras (por exemplo, se dois itens da receita caem na mesma barraca). Para uma **pesquisa** que compare pessoas, o mais rigoroso seria criar algumas **formas paralelas fixas** (Forma A, B, C…) e sortear entre elas, ou usar a mesma forma para todos na primeira aplicação. **Vale vocês decidirem e citarem como limitação ou escolha consciente.** Se decidirem por formas fixas, a mudança no app é pequena.
+> ⚠️ **Ponto metodológico para a ficha:** com o sorteio, **participantes diferentes recebem versões diferentes** do jogo, e algumas podem ser mais fáceis que outras (por exemplo, se vários itens da receita caem na mesma barraca, ou se a receita tem itens muito familiares). Para uma **pesquisa** que compare pessoas, o mais rigoroso seria usar **formas paralelas fixas** ou testar a equivalência das versões. **Vale vocês citarem como limitação ou escolha consciente.**
 
 ### Fase 3 — A panela — ✅ pronto
 - **O que acontece:** a vó diz *"Agora vamos cozinhar! Coloque na panela na ordem que eu falei."* Aparecem os itens que a pessoa **comprou na feira**, embaralhados, e uma panela com lugares numerados (1º, 2º, 3º…). Cada toque coloca o item no próximo lugar da panela. O aplicador pode **desfazer o último** se a pessoa mudar de ideia. Quando a panela fica completa, a vó diz *"Hum, que cheiro bom!"* e o aplicador encerra a fase.
@@ -303,16 +301,45 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 - **Formato: MP3**, com o nome do arquivo **exatamente** como está na tabela (sem acentos, tudo minúsculo).
 - Os ingredientes devem ser ditos **cada um como se fosse o fim de uma frase** (entonação descendo: *"Cebola."*), e não como pergunta nem como lista emendada.
 
-**Falas atuais (34 arquivos):**
+**Falas atuais (63 arquivos):**
 
 | Arquivo | O que dizer |
 |---|---|
 | `receita-ola.mp3` | Olá! Vou contar a receita da minha sopa. |
 | `receita-para-sopa.mp3` | Para a sopa, vamos precisar de: |
 | `receita-terminou.mp3` | Agora vamos à feira comprar tudo! |
-| `feira-troca-batata-mandioca.mp3` | Ah, esqueci! Troque a batata por mandioca. |
-| `feira-troca-cenoura-abobora.mp3` | Ah, esqueci! Troque a cenoura por abóbora. |
-| `feira-troca-tomate-pimentao.mp3` | Ah, esqueci! Troque o tomate por pimentão. |
+| `feira-troca-cebola.mp3` | Ah, esqueci! Troque a cebola… |
+| `feira-troca-alho.mp3` | Ah, esqueci! Troque o alho… |
+| `feira-troca-pimenta.mp3` | Ah, esqueci! Troque a pimenta… |
+| `feira-troca-pimentao.mp3` | Ah, esqueci! Troque o pimentão… |
+| `feira-troca-tomate.mp3` | Ah, esqueci! Troque o tomate… |
+| `feira-troca-feijao.mp3` | Ah, esqueci! Troque o feijão… |
+| `feira-troca-mandioca.mp3` | Ah, esqueci! Troque a mandioca… |
+| `feira-troca-batata.mp3` | Ah, esqueci! Troque a batata… |
+| `feira-troca-cenoura.mp3` | Ah, esqueci! Troque a cenoura… |
+| `feira-troca-abobora.mp3` | Ah, esqueci! Troque a abóbora… |
+| `feira-troca-milho.mp3` | Ah, esqueci! Troque o milho… |
+| `feira-troca-berinjela.mp3` | Ah, esqueci! Troque a berinjela… |
+| `feira-troca-pepino.mp3` | Ah, esqueci! Troque o pepino… |
+| `feira-troca-cogumelo.mp3` | Ah, esqueci! Troque o cogumelo… |
+| `feira-troca-brocolis.mp3` | Ah, esqueci! Troque o brócolis… |
+| `feira-troca-couve.mp3` | Ah, esqueci! Troque a couve… |
+| `feira-troca-por-cebola.mp3` | …por cebola. |
+| `feira-troca-por-alho.mp3` | …por alho. |
+| `feira-troca-por-pimenta.mp3` | …por pimenta. |
+| `feira-troca-por-pimentao.mp3` | …por pimentão. |
+| `feira-troca-por-tomate.mp3` | …por tomate. |
+| `feira-troca-por-feijao.mp3` | …por feijão. |
+| `feira-troca-por-mandioca.mp3` | …por mandioca. |
+| `feira-troca-por-batata.mp3` | …por batata. |
+| `feira-troca-por-cenoura.mp3` | …por cenoura. |
+| `feira-troca-por-abobora.mp3` | …por abóbora. |
+| `feira-troca-por-milho.mp3` | …por milho. |
+| `feira-troca-por-berinjela.mp3` | …por berinjela. |
+| `feira-troca-por-pepino.mp3` | …por pepino. |
+| `feira-troca-por-cogumelo.mp3` | …por cogumelo. |
+| `feira-troca-por-brocolis.mp3` | …por brócolis. |
+| `feira-troca-por-couve.mp3` | …por couve. |
 | `panela-instrucao.mp3` | Agora vamos cozinhar! Coloque na panela na ordem que eu falei. |
 | `panela-terminou.mp3` | Hum, que cheiro bom! Agora vamos descansar um pouco. |
 | `almoco-ola.mp3` | Que almoço gostoso! Agora vamos lembrar da ida à feira. |
@@ -343,6 +370,8 @@ Para fundamentar o envelhecimento cognitivo em geral, dá para usar Park et al. 
 | `ingrediente-feijao.mp3` | Feijão. |
 
 > Todos os 16 ingredientes entram na gravação, inclusive os que nunca vão para a receita, porque vão aparecer nas perguntas de reconhecimento do almoço.
+>
+> **A troca é montada com duas gravações** (a troca é sorteada entre 240 combinações, então gravar uma frase para cada seria inviável): o jogo toca `feira-troca-batata.mp3` (*"Ah, esqueci! Troque a batata…"*) e, emendado, `feira-troca-por-mandioca.mp3` (*"…por mandioca."*). Grave a primeira parte **sem baixar a entonação no fim** (a frase continua) e a segunda como **fim de frase**.
 >
 > Na pergunta “onde”, o jogo toca `almoco-onde.mp3` e, logo depois, o nome do ingrediente (`ingrediente-*.mp3`). Por isso cada ingrediente deve ser gravado como uma palavra solta.
 >

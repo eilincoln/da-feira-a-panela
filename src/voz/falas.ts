@@ -67,12 +67,20 @@ export function falaDoIngrediente(id: IdIngrediente): Fala {
   return { arquivo: `ingrediente-${id}`, texto: INGREDIENTES[id].nome }
 }
 
-// Uma gravação para cada troca possível (ver TROCAS_POSSIVEIS).
-export function falaDaTroca({ sai, entra }: Troca): Fala {
-  return {
-    arquivo: `feira-troca-${sai}-${entra}`,
-    texto: `Ah, esqueci! Troque ${INGREDIENTES[sai].artigo} ${nomeMinusculo(sai)} por ${nomeMinusculo(entra)}.`,
-  }
+// A troca é sorteada entre 16 × 15 combinações: gravar uma frase para cada
+// seria inviável. Então são DUAS gravações por ingrediente, que se encaixam:
+// "Ah, esqueci! Troque a batata" + "por mandioca." (32 arquivos no total).
+export function falasDaTroca({ sai, entra }: Troca): [Fala, Fala] {
+  return [
+    { arquivo: `feira-troca-${sai}`, texto: `Ah, esqueci! Troque ${INGREDIENTES[sai].artigo} ${nomeMinusculo(sai)}` },
+    { arquivo: `feira-troca-por-${entra}`, texto: `por ${nomeMinusculo(entra)}.` },
+  ]
+}
+
+export function textoDaTroca(troca: Troca): string {
+  return falasDaTroca(troca)
+    .map((fala) => fala.texto)
+    .join(' ')
 }
 
 // Uma gravação por barraca: a pergunta junta as 3 pistas (feirante, símbolo e cor).

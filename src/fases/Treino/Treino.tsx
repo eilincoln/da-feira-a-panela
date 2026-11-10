@@ -3,7 +3,7 @@ import { Botao } from '../../componentes/Botao/Botao'
 import { Feedback } from '../../componentes/Feedback/Feedback'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
 import { sons } from '../../som/sons'
-import { ERROS_ATE_A_DICA, ITENS_DO_TREINO, RODADAS_DO_TREINO } from './itensDoTreino'
+import { ERROS_ATE_A_DICA, sortearTreino } from './itensDoTreino'
 import estilos from './Treino.module.css'
 
 type TreinoProps = {
@@ -17,19 +17,21 @@ export function Treino({ etapa, aoConcluir }: TreinoProps) {
   // Estado LOCAL: só interessa enquanto o treino está na tela.
   // O que importa para a pesquisa (total de tentativas) sobe para o
   // estado global pelo `aoConcluir` quando o treino termina.
+  // Sorteado UMA vez, quando a tela nasce (cada jogo novo = treino novo)
+  const [{ itens, alvos }] = useState(sortearTreino)
   const [indiceRodada, setIndiceRodada] = useState(0)
   const [errosNaRodada, setErrosNaRodada] = useState(0)
   const [tentativas, setTentativas] = useState(0)
   const [ultimoToque, setUltimoToque] = useState<UltimoToque>(null)
 
-  const rodada = RODADAS_DO_TREINO[indiceRodada]
+  const alvo = alvos[indiceRodada]
   const acertou = ultimoToque === 'certo'
-  const ehUltimaRodada = indiceRodada === RODADAS_DO_TREINO.length - 1
+  const ehUltimaRodada = indiceRodada === alvos.length - 1
   const mostrarDica = errosNaRodada >= ERROS_ATE_A_DICA && !acertou
 
   function tocar(idItem: string) {
     setTentativas((t) => t + 1)
-    if (idItem === rodada.alvo) {
+    if (idItem === alvo.id) {
       sons.certo()
       setUltimoToque('certo')
     } else {
@@ -59,12 +61,12 @@ export function Treino({ etapa, aoConcluir }: TreinoProps) {
         ))
       }
     >
-      <p className={estilos.instrucao}>{rodada.instrucao}</p>
+      <p className={estilos.instrucao}>{alvo.instrucao}</p>
 
       <div className={estilos.opcoes}>
-        {ITENS_DO_TREINO.map((item) => {
-          const ehDica = mostrarDica && item.id === rodada.alvo
-          const ehCerto = acertou && item.id === rodada.alvo
+        {itens.map((item) => {
+          const ehDica = mostrarDica && item.id === alvo.id
+          const ehCerto = acertou && item.id === alvo.id
           const classes = [estilos.opcao, ehDica && estilos.dica, ehCerto && estilos.certo]
             .filter(Boolean)
             .join(' ')

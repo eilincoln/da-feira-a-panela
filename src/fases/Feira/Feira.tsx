@@ -8,7 +8,7 @@ import type { ResultadoDaFeira, Toque } from '../../jogo/indicadores'
 import { INGREDIENTES, type IdIngrediente, type Troca } from '../../jogo/ingredientes'
 import type { BarracaDaSessao } from '../../jogo/sessao'
 import { msDesde } from '../../jogo/utilidades'
-import { falaDaTroca } from '../../voz/falas'
+import { falasDaTroca, textoDaTroca } from '../../voz/falas'
 import { falar } from '../../voz/voz'
 import estilos from './Feira.module.css'
 
@@ -22,7 +22,6 @@ type FeiraProps = {
 }
 
 export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
-  const avisoDaTroca = falaDaTroca(troca)
 
   const [etapaDaTela, setEtapaDaTela] = useState<Etapa>('compras')
   const [sacola, setSacola] = useState<IdIngrediente[]>([])
@@ -65,7 +64,7 @@ export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
     const controle = new AbortController()
     controleRef.current = controle
     setFalando(true)
-    await falar(avisoDaTroca, controle.signal)
+    for (const fala of falasDaTroca(troca)) await falar(fala, controle.signal)
     setFalando(false)
   }
 
@@ -97,7 +96,7 @@ export function Feira({ etapa, barracas, troca, aoConcluir }: FeiraProps) {
     >
       {etapaDaTela === 'troca' && (
         <div className={estilos.fala}>
-          <FalaDaVo fala={avisoDaTroca.texto} falando={falando} compacta />
+          <FalaDaVo fala={textoDaTroca(troca)} falando={falando} compacta />
         </div>
       )}
 
