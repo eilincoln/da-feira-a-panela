@@ -75,3 +75,39 @@ button {
   white-space: nowrap;
   border: 0;
 }
+
+/* ---- Só na tela / só na impressão ---- */
+.so-na-impressao {
+  display: none;
+}
+
+/* ---- Impressão / "Salvar como PDF" (relatório de resultados) ----
+   No papel não há toque nem animação: texto preto no branco,
+   fonte em pontos (unidade de impressão) e nada de botões. */
+@page {
+  margin: 15mm;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-size: 11pt;
+  }
+
+  [data-nao-imprimir],
+  .so-na-tela {
+    display: none !important;
+  }
+
+  .so-na-impressao {
+    display: revert;
+  }
+}

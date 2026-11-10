@@ -30,10 +30,15 @@ export function TelaFase({ etapa, titulo, descricao, larga = false, children, ac
     <main className={`${estilos.tela} ${larga ? estilos.larga : ''}`}>
       <header className={estilos.cabecalho}>
         <div>
-          <p className={estilos.etapa}>{etapa}</p>
+          <p className={estilos.etapa} data-nao-imprimir>
+            {etapa}
+          </p>
           <h1 className={estilos.titulo}>{titulo}</h1>
         </div>
-        <div className={estilos.acoes}>{acoes}</div>
+        {/* data-nao-imprimir: botões não aparecem no PDF (ver base.css) */}
+        <div className={estilos.acoes} data-nao-imprimir>
+          {acoes}
+        </div>
       </header>
       <p className={estilos.descricao}>{descricao}</p>
       <div className={estilos.conteudo}>{children}</div>

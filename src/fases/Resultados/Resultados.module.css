@@ -9,7 +9,8 @@
 
 .dados {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  /* coluna de rótulos com a MESMA largura em todas as seções: tudo alinhado */
+  grid-template-columns: 15rem 1fr;
   gap: var(--espaco-1) var(--espaco-3);
   margin: 0;
 }
@@ -21,4 +22,79 @@
 .dados dd {
   margin: 0;
   font-weight: 700;
+}
+
+.campo {
+  width: 10rem;
+  min-height: var(--alvo-toque-min);
+  padding: 0 var(--espaco-2);
+  border: var(--foco-espessura) solid var(--cor-texto-suave);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.campo[aria-invalid='true'] {
+  border-color: var(--cor-atencao);
+  border-style: dashed;
+}
+
+.ajuda,
+.nota {
+  margin: var(--espaco-1) 0 0;
+  color: var(--cor-texto-suave);
+  font-weight: 400;
+}
+
+.rodape {
+  margin: var(--espaco-4) 0 0;
+  padding-top: var(--espaco-2);
+  border-top: 2px solid var(--cor-texto-suave);
+  color: var(--cor-texto-suave);
+}
+
+/* ---- Versão em PDF ---- */
+@media print {
+  .secao {
+    margin-bottom: 10pt;
+    break-inside: avoid; /* não corta uma seção no meio entre duas páginas */
+  }
+
+  .secao h2 {
+    margin-bottom: 4pt;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid #000000;
+    font-size: 13pt;
+  }
+
+  .dados {
+    grid-template-columns: 48mm 1fr;
+    gap: 2pt 12pt;
+  }
+
+  .dados dt,
+  .ajuda,
+  .nota,
+  .rodape {
+    color: #333333;
+  }
+
+  .nota,
+  .rodape {
+    font-size: 9pt;
+  }
+}
+
+/* Celular: rótulo em cima, valor embaixo */
+@media screen and (max-width: 40rem) {
+  .dados {
+    grid-template-columns: 1fr;
+  }
+
+  .dados dd {
+    margin-bottom: var(--espaco-1);
+  }
 }

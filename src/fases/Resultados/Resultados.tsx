@@ -1,4 +1,6 @@
+import { Fragment, useId, useRef, useState } from 'react'
 import { Botao } from '../../componentes/Botao/Botao'
+import { Feedback } from '../../componentes/Feedback/Feedback'
 import { TelaFase } from '../../componentes/TelaFase/TelaFase'
 import type { EstadoDoJogo } from '../../jogo/estadoDoJogo'
 import {
@@ -14,6 +16,19 @@ type ResultadosProps = {
   etapa: string
   estado: EstadoDoJogo
   aoReiniciar: () => void
+}
+
+// Só código (P01, AB12...): letras + números, sem espaço. Um nome como
+// "Maria" não passa, e isso evita que um dado pessoal vá parar no PDF (LGPD).
+const FORMATO_DO_CODIGO = /^[A-Z]{1,3}\d{1,4}$/
+
+function dataPorExtenso(iso: string) {
+  return new Date(iso).toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' })
+}
+
+// AAAA-MM-DD (bom para nome de arquivo: fica em ordem cronológica na pasta)
+function dataParaArquivo(iso: string) {
+  return iso.slice(0, 10)
 }
 
 function nomes(ids: readonly IdIngrediente[]) {
@@ -43,9 +58,14 @@ function LinhasDaComparacao({ comparacao }: { comparacao: Comparacao }) {
   )
 }
 
-// Tela provisória para o aplicador conferir os dados.
-// O painel completo (e a exportação) vem num bloco próprio.
+// Relatório da sessão: na tela, para o aplicador conferir; no PDF, para guardar.
 export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
+  const [codigo, setCodigo] = useState('')
+  const [codigoInvalido, setCodigoInvalido] = useState(false)
+  const campoRef = useRef<HTMLInputElement>(null)
+  const idDoCampo = useId()
+  const idDaAjuda = useId()
+
   const { sessao } = estado
   const { troca } = sessao
   // Indicadores CALCULADOS aqui, a partir dos dados brutos do estado.
@@ -53,22 +73,102 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
   const panela = estado.panela && calcularIndicadoresDaPanela(sessao.receita, sessao.troca, estado.panela)
   const almoco = estado.almoco && calcularIndicadoresDoAlmoco(estado.almoco)
 
+  function exportarPdf() {
+    if (!FORMATO_DO_CODIGO.test(codigo)) {
+      setCodigoInvalido(true)
+      campoRef.current?.focus()
+      return
+    }
+    // O navegador usa o título da página como nome sugerido do PDF.
+    const tituloOriginal = document.title
+    document.title = `da-feira-a-panela_${codigo}_${dataParaArquivo(sessao.iniciadaEm)}`
+    window.addEventListener('afterprint', () => (document.title = tituloOriginal), { once: true })
+    window.print()
+  }
+
   return (
     <TelaFase
       etapa={etapa}
-      titulo="Resultados"
-      descricao="Resumo do desempenho para o aplicador."
-      acoes={<Botao onClick={aoReiniciar}>Começar de novo</Botao>}
+      titulo="Relatório da sessão"
+      descricao="Da Feira à Panela · resumo do desempenho para o aplicador."
+      acoes={
+        <>
+          <Botao variante="secundario" onClick={aoReiniciar}>Começar de novo</Botao>
+          <Botao onClick={exportarPdf}>📄 Exportar PDF</Botao>
+        </>
+      }
     >
+      <section className={estilos.secao}>
+        <h2>Identificação</h2>
+        <dl className={estilos.dados}>
+          <dt>
+            <label htmlFor={idDoCampo}>Código do participante</label>
+          </dt>
+          <dd>
+            {/* Na tela: campo para o APLICADOR digitar. No PDF: só o texto. */}
+            <div className="so-na-tela">
+              <input
+                ref={campoRef}
+                id={idDoCampo}
+                className={estilos.campo}
+                value={codigo}
+                onChange={(e) => {
+                  // Maiúsculas e sem espaços enquanto digita
+                  setCodigo(e.target.value.toUpperCase().replace(/\s/g, ''))
+                  setCodigoInvalido(false)
+                }}
+                maxLength={7}
+                placeholder="P01"
+                autoComplete="off"
+                autoCapitalize="characters"
+                spellCheck={false}
+                aria-describedby={idDaAjuda}
+                aria-invalid={codigoInvalido}
+              />
+              <p id={idDaAjuda} className={estilos.ajuda}>
+                Só o código (ex.: P01). Nunca o nome da pessoa.
+              </p>
+              <div aria-live="polite">
+                {codigoInvalido && (
+                  <Feedback tipo="tentarDeNovo" mensagem="Use letras e números, como P01." />
+                )}
+              </div>
+            </div>
+            <span className="so-na-impressao">{codigo}</span>
+          </dd>
+          <dt>Início da sessão</dt>
+          <dd>{dataPorExtenso(sessao.iniciadaEm)}</dd>
+        </dl>
+      </section>
+
+      <section className={estilos.secao}>
+        <h2>Sessão sorteada</h2>
+        <dl className={estilos.dados}>
+          <dt>Receita ({sessao.receita.length} itens)</dt>
+          <dd>{nomes(sessao.receita)}</dd>
+          <dt>Troca pedida</dt>
+          <dd>{INGREDIENTES[troca.sai].nome} → {INGREDIENTES[troca.entra].nome}</dd>
+          {sessao.barracas.map((barraca) => (
+            <Fragment key={barraca.id}>
+              <dt>
+                {barraca.simbolo} {barraca.feirante}
+              </dt>
+              <dd>
+                {barraca.itens
+                  .map((id) => INGREDIENTES[id].nome + (sessao.receita.includes(id) ? '*' : ''))
+                  .join(', ')}
+              </dd>
+            </Fragment>
+          ))}
+        </dl>
+        <p className={estilos.nota}>* item da receita. Barracas na ordem em que apareceram na tela.</p>
+      </section>
+
       <section className={estilos.secao}>
         <h2>Treino e receita</h2>
         <dl className={estilos.dados}>
           <dt>Tentativas no treino</dt>
           <dd>{estado.tentativasNoTreino ?? '—'}</dd>
-          <dt>Receita sorteada</dt>
-          <dd>{nomes(sessao.receita)}</dd>
-          <dt>Troca sorteada</dt>
-          <dd>{INGREDIENTES[troca.sai].nome} → {INGREDIENTES[troca.entra].nome}</dd>
           <dt>Vezes que ouviu</dt>
           <dd>{estado.apresentacoesDaReceita ?? '—'}</dd>
         </dl>
@@ -79,6 +179,8 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
           <section className={estilos.secao}>
             <h2>Feira — manutenção (antes da troca)</h2>
             <dl className={estilos.dados}>
+              <dt>Sacola</dt>
+              <dd>{nomes(estado.feira.sacolaAntesDaTroca)}</dd>
               <LinhasDaComparacao comparacao={feira.manutencao} />
               <dt>Tempo</dt>
               <dd>{segundos(estado.feira.duracaoComprasMs)}</dd>
@@ -88,6 +190,8 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
           <section className={estilos.secao}>
             <h2>Feira — atualização (depois da troca)</h2>
             <dl className={estilos.dados}>
+              <dt>Sacola</dt>
+              <dd>{nomes(estado.feira.sacolaFinal)}</dd>
               <LinhasDaComparacao comparacao={feira.atualizacao} />
               <dt>Troca feita</dt>
               <dd>{feira.trocaFeita ? 'sim' : 'não'}</dd>
@@ -179,6 +283,12 @@ export function Resultados({ etapa, estado, aoReiniciar }: ResultadosProps) {
           </dl>
         </section>
       )}
+
+      <p className={estilos.rodape}>
+        Protótipo acadêmico (NeuroGame Lab), sem estudo de validade nem normas: não é um
+        instrumento diagnóstico. Relatório gerado no próprio navegador; nenhum dado foi
+        enviado a servidores.
+      </p>
     </TelaFase>
   )
 }

@@ -28,7 +28,7 @@ Um jogo digital para tablet ou computador que **avalia e estimula a memória de 
 | **Fase 4 — O almoço** (memória episódica) | ✅ pronto |
 | **Ícones próprios** dos 16 ingredientes | ✅ pronto (a vó, os animais e os itens do treino ainda usam emoji) |
 | **Efeitos sonoros** | ✅ pronto |
-| Painel de resultados completo + exportação | ⏳ a fazer (já existe uma versão provisória) |
+| **Relatório da sessão + exportação em PDF** | ✅ pronto |
 | Adaptação de dificuldade (3 → 7 itens) | ⏳ a fazer |
 | Versão em papel/PDF (backup exigido pela professora) | ⏳ a fazer |
 
@@ -188,6 +188,21 @@ A vó abre: *"Que almoço gostoso! Agora vamos lembrar da ida à feira."* Em seg
 
 > Exemplo: comprou cebola, mandioca, cenoura e pepino. Na livre, lembrou só a cebola (e disse "tomate" e "arroz"). Com pista, lembrou a cenoura. No reconhecimento, tocou cebola, mandioca, cenoura e milho. Acertou 2 de 3 barracas.
 > Resultado: livre 1/4; intrusões 1 + 1 fora da feira; ganho com pista +1 (total evocado 2/4); reconhecimento 3/4 com 1 falso alarme; onde 2/3; **item 75% × associação 67%**.
+
+---
+
+### Relatório da sessão (PDF) — ✅ pronto
+Ao final do jogo, aparece o **relatório da sessão**. O aplicador digita o **código do participante** e toca em **"📄 Exportar PDF"**. Na janela de impressão, é só escolher **"Salvar como PDF"** (no iPad: Compartilhar → Imprimir → Compartilhar o PDF).
+
+**O que vai no PDF:**
+- **Identificação:** código do participante, data e hora de início.
+- **Sessão sorteada:** receita, troca e o que cada barraca vendia, na ordem em que apareceram, com os itens da receita marcados com \*.
+- **Todos os indicadores** de cada fase: treino, receita, feira (manutenção e atualização), panela, intervalo e almoço.
+- **Rodapé:** *"Protótipo acadêmico, sem estudo de validade nem normas: não é um instrumento diagnóstico."*
+
+**Privacidade:** o campo de código **só aceita letras seguidas de números** (P01, AB12…). Um nome como "Maria" não passa, então nenhum dado pessoal vai parar no PDF por engano. O PDF é gerado no próprio aparelho, sem enviar nada a servidores. O nome do arquivo já sai pronto: `da-feira-a-panela_P01_2026-11-23.pdf`.
+
+> **Para a análise:** cada PDF é uma sessão. Para comparar várias pessoas, será preciso passar os números para uma planilha. Se for útil, dá para gerar também um arquivo **CSV**, que abre direto no Excel ou no Google Planilhas.
 
 ---
 

@@ -24,6 +24,7 @@ export type Sessao = {
   receita: IdIngrediente[] // na ordem de preparo
   troca: Troca
   barracas: BarracaDaSessao[] // na ordem em que aparecem na tela
+  iniciadaEm: string // data e hora (ISO) em que o jogo começou, para o relatório
 }
 
 export function sortearSessao(tamanhoDaReceita: number): Sessao {
@@ -33,7 +34,13 @@ export function sortearSessao(tamanhoDaReceita: number): Sessao {
   const outros = embaralhar(PODEM_ENTRAR_NA_RECEITA.filter((id) => id !== troca.sai))
   const receita = [troca.sai, ...outros.slice(0, tamanhoDaReceita - 1)].toSorted(porOrdemDePreparo)
 
-  return { receita, troca, barracas: distribuirNasBarracas(troca) }
+  return {
+    receita,
+    troca,
+    barracas: distribuirNasBarracas(troca),
+    // Ler a data também é impuro: por isso fica aqui, junto do sorteio, fora do reducer
+    iniciadaEm: new Date().toISOString(),
+  }
 }
 
 function distribuirNasBarracas(troca: Troca): BarracaDaSessao[] {
